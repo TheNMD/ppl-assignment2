@@ -49,11 +49,6 @@ class MT22Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MT22Parser#middlearr.
-    def visitMiddlearr(self, ctx:MT22Parser.MiddlearrContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by MT22Parser#litarr.
     def visitLitarr(self, ctx:MT22Parser.LitarrContext):
         return self.visitChildren(ctx)
@@ -89,8 +84,8 @@ class MT22Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MT22Parser#para.
-    def visitPara(self, ctx:MT22Parser.ParaContext):
+    # Visit a parse tree produced by MT22Parser#paradecl.
+    def visitParadecl(self, ctx:MT22Parser.ParadeclContext):
         return self.visitChildren(ctx)
 
 

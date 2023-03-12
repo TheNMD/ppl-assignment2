@@ -13,6 +13,7 @@ options{
 //==========================================================
 // Lexer Rules
 //==========================================================
+
 // Whitespace
 WS : [ \t\n\r\f\b]+ -> skip ;
 
@@ -146,20 +147,12 @@ declist : decl declist | decl ;
 
 decl : vardecl | funcdecl ;
 
-vardecl : idlist CL vartyp SM
-		| ID middle expr SM 
-		| idlist CL KWARR LSB idxlist RSB KWOF vartyp SM
-		| ID middlearr litarr SM ;
+vardecl : idlist CL (KWARR LSB idxlist RSB KWOF)? vartyp SM
+		| ID middle expr SM ;
 
 idlist : ID ids | ID ;
 
 ids : CM ID ids | ;
-
-middle : CM ID middle expr CM | CL (vartyp | KWAUTO) EQL ;
-
-middlearr : CM ID middlearr litarr CM | CL KWARR LSB idxlist RSB KWOF vartyp EQL ;
-
-litarr : LCB exprlist? RCB ;
 
 vartyp : KWINT | KWFLOAT | KWBOO | KWSTR ;
 
@@ -167,8 +160,13 @@ idxlist : (LITINT | ID) idxs | (LITINT | ID) ;
 
 idxs : CM (LITINT | ID) idxs | ;
 
-funcdecl : ID CL KWFUNC (functyp | KWAUTO) LB paralist RB (KWINHERIT ID)? LCB bodylist RCB
-		 | ID CL KWFUNC KWVOID LB paralist RB (KWINHERIT ID)? LCB bodylist RCB ;
+middle : CM ID middle expr CM | CL (KWARR LSB idxlist RSB KWOF)? (vartyp | KWAUTO) EQL ;
+
+funcdecl : funcproto funcbody ;
+
+funcproto : ID CL KWFUNC (functyp | KWAUTO | KWVOID) paradecl (KWINHERIT ID)? ;
+
+paradecl : LB paralist RB ;
 
 paralist : para paras | ;
 
@@ -177,6 +175,8 @@ paras : CM para paras | ;
 para :  KWINHERIT? KWOUT? ID CL vartyp ;
 
 functyp :  KWINT | KWFLOAT | KWBOO | KWSTR ;
+
+funcbody : LCB bodylist RCB ;
 
 bodylist : body bodylist | ;
 
@@ -235,6 +235,8 @@ idxop : LSB idxlist RSB ;
 funccall : ID LB exprlist? RB ;
 
 subexpr : LB expr RB ;
+
+litarr : LCB exprlist? RCB ;
 
 specialfunc : ('readInteger' | 'printInteger' | 'readFloat' | 'writeFloat' | 'readBoolean' | 'printBoolean' | 'readString' | 'printString' | 'super' | 'preventDefault') LB exprlist? RB ;
 

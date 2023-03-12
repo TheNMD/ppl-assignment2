@@ -44,21 +44,6 @@ class MT22Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MT22Parser#middle.
-    def visitMiddle(self, ctx:MT22Parser.MiddleContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MT22Parser#middlearr.
-    def visitMiddlearr(self, ctx:MT22Parser.MiddlearrContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MT22Parser#litarr.
-    def visitLitarr(self, ctx:MT22Parser.LitarrContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by MT22Parser#vartyp.
     def visitVartyp(self, ctx:MT22Parser.VartypContext):
         return self.visitChildren(ctx)
@@ -74,8 +59,23 @@ class MT22Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by MT22Parser#middle.
+    def visitMiddle(self, ctx:MT22Parser.MiddleContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by MT22Parser#funcdecl.
     def visitFuncdecl(self, ctx:MT22Parser.FuncdeclContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MT22Parser#funcproto.
+    def visitFuncproto(self, ctx:MT22Parser.FuncprotoContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MT22Parser#paradecl.
+    def visitParadecl(self, ctx:MT22Parser.ParadeclContext):
         return self.visitChildren(ctx)
 
 
@@ -96,6 +96,11 @@ class MT22Visitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by MT22Parser#functyp.
     def visitFunctyp(self, ctx:MT22Parser.FunctypContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MT22Parser#funcbody.
+    def visitFuncbody(self, ctx:MT22Parser.FuncbodyContext):
         return self.visitChildren(ctx)
 
 
@@ -236,6 +241,11 @@ class MT22Visitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by MT22Parser#subexpr.
     def visitSubexpr(self, ctx:MT22Parser.SubexprContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MT22Parser#litarr.
+    def visitLitarr(self, ctx:MT22Parser.LitarrContext):
         return self.visitChildren(ctx)
 
 
