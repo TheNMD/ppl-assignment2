@@ -1,0 +1,1 @@
+int0 : array [22 of float ;

@@ -1,0 +1,5 @@
+temp : integer = 12 ;
+        func1 : function string (inherit c : string, inherit out d : string) {
+            temp : array [2,2] of string ;
+            temp[0,1] = "randtrfck	" ;
+            }

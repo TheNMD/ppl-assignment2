@@ -1,0 +1,1 @@
+func : function integer (out n1 : integer, n2 : string, n3 : float) { a : float = 1.222e-34; return; }

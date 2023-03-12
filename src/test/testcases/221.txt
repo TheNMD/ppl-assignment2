@@ -1,0 +1,4 @@
+func1 : function float (c : string, out d : boolean) {
+            a,b,c : integer = 1,2,3,4 ;
+            return a ;
+            }

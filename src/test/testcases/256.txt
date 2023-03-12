@@ -1,0 +1,5 @@
+func1 : function string (inherit c : string, inherit out d : string) {
+            temp : array [2,2] of string = {{a,a},{d,d}} ;
+            int1 : integer = 0 ;
+            return temp[int1, int1] ;
+            }

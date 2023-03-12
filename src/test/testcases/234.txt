@@ -1,0 +1,4 @@
+func1 : function integer (c : string, out d : boolean) {
+            a = 9b ;
+            return a ;
+            }

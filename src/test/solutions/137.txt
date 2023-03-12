@@ -1,0 +1,1 @@
+str,:,array,[,2,,,2,],of,string,=,{,{,abc\",,,\t\n,},,,{,933.ssxxz!!!!!,,,../czfd44,},},;,<EOF>

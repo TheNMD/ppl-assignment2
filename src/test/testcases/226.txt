@@ -1,0 +1,4 @@
+func1 : function float (c : string, out d : boolean) {
+            arr1 : array [2,3] of string = {{},{}} ; 
+            return arr1 ;
+            }

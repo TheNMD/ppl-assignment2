@@ -1,0 +1,1 @@
+if,(,6,%,6,==,1,),int1,:,integer,=,1222334,sxx,;,else,bool1,:,boolean,=,true,||,false,;,<EOF>

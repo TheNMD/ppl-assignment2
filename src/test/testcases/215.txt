@@ -1,0 +1,11 @@
+func1 : function auto (out a : integer, b : float) {
+            randfloat : float = 1_332.33e-23 ;
+            randarr : array [7] of string ;
+            return 2233;
+            }
+            func2 : function void (c : string, out d : boolean) {
+            if(a == 5) c = a % 7 ;
+            else d = a / 8 ;
+            randarr : array [1,3_3,5] of boolean ;
+            return;
+            }

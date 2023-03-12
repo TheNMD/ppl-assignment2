@@ -1,0 +1,1 @@
+int1 : integer = "sadsadxx\u"; func1:function boolean (a:boolean) {i[22,3] = 7 / 6 ;}

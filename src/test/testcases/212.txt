@@ -1,0 +1,1 @@
+boo1 : boolean = true || true || true || true && false && false ;

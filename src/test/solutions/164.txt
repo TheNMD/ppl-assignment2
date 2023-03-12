@@ -1,0 +1,1 @@
+func1,:,function,auto,(,out,a,:,integer,,,b,:,float,),{,a,=,Error Token ?

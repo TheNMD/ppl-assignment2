@@ -1,0 +1,1 @@
+str1 : string = "\t\"\n	" :: "			ssset\r"; 

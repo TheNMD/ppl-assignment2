@@ -1,0 +1,3 @@
+main1 : function string () {
+            printInteger(func1(2,3,4), func2(a,b,c), func3("sss", "oop")) ;
+            }

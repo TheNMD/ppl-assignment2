@@ -1,0 +1,3 @@
+func1 : function integer (inherit c : string, inherit out d : boolean) {
+            return c ;
+            }
