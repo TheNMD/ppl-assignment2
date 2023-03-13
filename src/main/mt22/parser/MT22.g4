@@ -147,24 +147,24 @@ declist : decl declist | decl ;
 
 decl : vardecl | funcdecl ;
 
-vardecl : idlist CL (KWARR LSB idxlist RSB KWOF)? vartyp SM
+vardecl : idlist CL (KWARR LSB dimenlist RSB KWOF)? vartyp SM
 		| ID middle expr SM ;
 
 idlist : ID ids | ID ;
 
 ids : CM ID ids | ;
 
-vartyp : KWINT | KWFLOAT | KWBOO | KWSTR ;
+vartyp : KWINT | KWFLOAT | KWBOO | KWSTR | KWAUTO ;
 
-idxlist : (LITINT | ID) idxs | (LITINT | ID) ;
+dimenlist : LITINT dimens | LITINT ;
 
-idxs : CM (LITINT | ID) idxs | ;
+dimens : CM LITINT dimens | ;
 
-middle : CM ID middle expr CM | CL (KWARR LSB idxlist RSB KWOF)? (vartyp | KWAUTO) EQL ;
+middle : CM ID middle expr CM | CL (KWARR LSB dimenlist RSB KWOF)? vartyp EQL ;
 
 funcdecl : funcproto funcbody ;
 
-funcproto : ID CL KWFUNC (functyp | KWAUTO | KWVOID) paradecl (KWINHERIT ID)? ;
+funcproto : ID CL KWFUNC functyp paradecl (KWINHERIT ID)? ;
 
 paradecl : LB paralist RB ;
 
@@ -174,7 +174,7 @@ paras : CM para paras | ;
 
 para :  KWINHERIT? KWOUT? ID CL vartyp ;
 
-functyp :  KWINT | KWFLOAT | KWBOO | KWSTR ;
+functyp :  KWINT | KWFLOAT | KWBOO | KWSTR | KWAUTO | KWVOID ;
 
 funcbody : LCB bodylist RCB ;
 
@@ -230,7 +230,7 @@ expr6 : SUBOP expr6 | operand ;
 
 operand: LITINT | LITFLOAT | litboo | LITSTR | ID idxop? | funccall | subexpr | litarr ;
 
-idxop : LSB idxlist RSB ;
+idxop : LSB dimenlist RSB ;
 
 funccall : ID LB exprlist? RB ;
 

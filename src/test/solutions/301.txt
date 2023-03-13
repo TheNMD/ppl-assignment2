@@ -1,3 +1,11 @@
 Program([
-	None
+	VarDecl(x, IntegerType, 0)
+	VarDecl(x, IntegerType, 0)
+	VarDecl(x, IntegerType, 0)
+	VarDecl(y, IntegerType, 0)
+	VarDecl(y, IntegerType, 0)
+	VarDecl(y, IntegerType, 0)
+	VarDecl(z, IntegerType, 0)
+	VarDecl(z, IntegerType, 0)
+	VarDecl(z, IntegerType, 0)
 ])

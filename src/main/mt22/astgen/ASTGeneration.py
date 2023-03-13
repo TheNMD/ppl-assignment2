@@ -4,30 +4,40 @@ from AST import *
 
 class ASTGeneration(MT22Visitor):
     def visitProgram(self, ctx: MT22Parser.ProgramContext):
-        return Program([self.visit(ctx.declist())])
+        return Program([decl for decl in self.visit(ctx.declist())])
     def visitDeclist(self, ctx: MT22Parser.DeclistContext):
-        if ctx.getChildCount() == 1: 
-            return self.visit(ctx.decl())
-        return self.visit(ctx.declist())
+        if ctx.declist(): 
+            return self.visit(ctx.decl()) + self.visit(ctx.declist())
+        return self.visit(ctx.decl())
     def visitDecl(self, ctx: MT22Parser.DeclContext):
         if ctx.vardecl(): 
             return self.visit(ctx.vardecl())
         return self.visit(ctx.funcdecl())
     def visitVardecl(self, ctx: MT22Parser.VardeclContext):
-        if ctx.middle(): 
-            pass
-        idlist = self.visit(ctx.idlist())
-        # idxlist = self.visit(ctx.idxlist())
-        vartyp = self.visit(ctx.vartyp())
-        return VarDecl(idlist, vartyp)
+        if ctx.middle():
+            idlist = [ctx.ID().getText()]
+            valuelist = self.visit(ctx.expr())
+            idvaluelist = self.visit(ctx.middle())
+            size = len(idvaluelist)
+            for i in range(0, int((size - 1) / 2)):
+                idlist += idvaluelist[i]
+                valuelist += idvaluelist[int((size - 1) / 2 + 1 + i)]
+            vartyp = idvaluelist[int((size - 1) / 2)]
+            return [VarDecl(id, vartyp, value) for id, value in idlist, valuelist]
+        else:
+            idlist = self.visit(ctx.idlist())
+            vartyp = self.visit(ctx.vartyp())
+            if ctx.dimenlist():
+                dimenlist = self.visit(ctx.dimenlist())
+                return [VarDecl(id, ArrayType(dimenlist, vartyp)) for id in idlist]
+            return [VarDecl(id, vartyp) for id in idlist]
     def visitIdlist(self, ctx: MT22Parser.IdlistContext):
-        if ctx.getChildCount() == 2:
-            #return ctx.ID().getText() + self.visit(ctx.ids())
-            pass
-        return ctx.ID().getText()
+        if ctx.ids():
+            return [ctx.ID().getText()] + self.visit(ctx.ids())
+        return [ctx.ID().getText()]
     def visitIds(self, ctx: MT22Parser.IdsContext):
-        if ctx.ID():
-            return ctx.ID().getText()
+        if ctx.ids():
+            return [ctx.ID().getText()] + self.visit(ctx.ids())
         return []
     def visitVartyp(self, ctx: MT22Parser.VartypContext):
         if ctx.KWINT():
@@ -37,3 +47,18 @@ class ASTGeneration(MT22Visitor):
         elif ctx.KWBOO():
             return BooleanType()
         return StringType()
+    def visitDimenlist(self, ctx: MT22Parser.DimenlistContext):
+        if ctx.dimens():
+            return [ctx.LITINT().getText()] + self.visit(ctx.dimens())
+        return [ctx.LITINT().getText()]
+    def visitDimens(self, ctx: MT22Parser.DimensContext):
+        if ctx.dimens():
+            return [ctx.LITINT().getText()] + self.visit(ctx.dimens())
+        return []
+    def visitMiddle(self, ctx: MT22Parser.MiddleContext):
+        if ctx.middle():
+            return [ctx.ID().getText()] + self.visit(ctx.middle()) + self.visit(ctx.expr())
+        return [self.visit(ctx.vartyp())]
+    def visitExpr(self, ctx: MT22Parser.ExprContext):
+        return ["0"]
+      

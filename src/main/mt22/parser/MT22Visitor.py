@@ -49,13 +49,13 @@ class MT22Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MT22Parser#idxlist.
-    def visitIdxlist(self, ctx:MT22Parser.IdxlistContext):
+    # Visit a parse tree produced by MT22Parser#dimenlist.
+    def visitDimenlist(self, ctx:MT22Parser.DimenlistContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MT22Parser#idxs.
-    def visitIdxs(self, ctx:MT22Parser.IdxsContext):
+    # Visit a parse tree produced by MT22Parser#dimens.
+    def visitDimens(self, ctx:MT22Parser.DimensContext):
         return self.visitChildren(ctx)
 
 
