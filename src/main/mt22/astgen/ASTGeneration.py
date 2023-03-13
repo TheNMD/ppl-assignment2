@@ -15,15 +15,15 @@ class ASTGeneration(MT22Visitor):
         return self.visit(ctx.funcdecl())
     def visitVardecl(self, ctx: MT22Parser.VardeclContext):
         if ctx.middle():
-            idlist = [ctx.ID().getText()]
-            valuelist = self.visit(ctx.expr())
-            idvaluelist = self.visit(ctx.middle())
+            idvaluelist = [ctx.ID().getText()] + self.visit(ctx.middle()) + self.visit(ctx.expr())
             size = len(idvaluelist)
-            for i in range(0, int((size - 1) / 2)):
-                idlist += idvaluelist[i]
-                valuelist += idvaluelist[int((size - 1) / 2 + 1 + i)]
             vartyp = idvaluelist[int((size - 1) / 2)]
-            return [VarDecl(id, vartyp, value) for id, value in idlist, valuelist]
+            res = []
+            for i in range(0, int((size - 1) / 2)):
+                id = idvaluelist[i]
+                value = idvaluelist[int((size - 1) / 2 + 1 + i)]
+                res += [VarDecl(id, vartyp, value)]
+            return res
         else:
             idlist = self.visit(ctx.idlist())
             vartyp = self.visit(ctx.vartyp())
@@ -59,6 +59,53 @@ class ASTGeneration(MT22Visitor):
         if ctx.middle():
             return [ctx.ID().getText()] + self.visit(ctx.middle()) + self.visit(ctx.expr())
         return [self.visit(ctx.vartyp())]
-    def visitExpr(self, ctx: MT22Parser.ExprContext):
-        return ["0"]
-      
+    def visitExpr(self, ctx: MT22Parser.ExprContext): #TODO
+        if ctx.CONCATOP():
+            pass
+        return self.visit(ctx.expr1()[0])
+    def visitExpr1(self, ctx: MT22Parser.Expr1Context): #TODO
+        if (ctx.EQLOP() or ctx.DIFOP() or ctx.LARGEOP() or ctx.LEQLOP() or ctx.SMALLOP() or ctx.SEQLOP()):
+            pass
+        return self.visit(ctx.expr2()[0])
+    def visitExpr2(self, ctx: MT22Parser.Expr2Context): #TODO
+        if (ctx.ANDOP() or ctx.OROP()):
+            pass
+        return self.visit(ctx.expr3())
+    def visitExpr3(self, ctx: MT22Parser.Expr3Context): #TODO
+        if (ctx.ADDOP() or ctx.SUBOP()):
+            pass
+        return self.visit(ctx.expr4())
+    def visitExpr4(self, ctx: MT22Parser.Expr4Context): #TODO
+        if (ctx.MULOP() or ctx.DIVOP() or ctx.MODOP()):
+            pass
+        return self.visit(ctx.expr5())
+    def visitExpr5(self, ctx: MT22Parser.Expr5Context): #TODO
+        if (ctx.EXCOP()):
+            pass
+        return self.visit(ctx.expr6())
+    def visitExpr6(self, ctx: MT22Parser.Expr6Context): #TODO
+        if (ctx.SUBOP()):
+            pass
+        return self.visit(ctx.operand())
+    def visitOperand(self, ctx: MT22Parser.OperandContext): #TODO
+        if ctx.LITINT():
+            return [IntegerLit(ctx.LITINT().getText())]
+        elif ctx.LITFLOAT():
+            return [FloatLit(ctx.LITINT().getText())]
+        elif ctx.litboo():
+            return [self.visit(ctx.litboo())]
+        elif ctx.StringLit():
+            return [StringLit(ctx.LITINT().getText())]
+        elif ctx.ID():
+            if ctx.idxop():
+                pass #TODO
+            return [Id(ctx.ID().getText())]
+        elif ctx.funcall():
+            pass #TODO
+        elif ctx.subexpr():
+            return self.visit(ctx.subexpr()) # TODO
+        return self.visit(ctx.litarr()) # TODO
+    def visitLitboo(self, ctx: MT22Parser.LitbooContext): #TODO
+        if ctx.KWTRUE():
+            return BooleanLit(True)
+        return BooleanLit(False)

@@ -1,3 +1,5 @@
 Program([
-	None
+	VarDecl(x, IntegerType, BooleanLit(True))
+	VarDecl(y, IntegerType, BooleanLit(False))
+	VarDecl(z, IntegerType, BooleanLit(True))
 ])

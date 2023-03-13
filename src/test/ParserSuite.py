@@ -164,7 +164,7 @@ class ParserSuite(unittest.TestCase):
                     if(arr[i,j] == true) return 220 ;
             return int1 ;
             }"""
-        expect = "successful"
+        expect = "Error on line 4 col 27: i"
         self.assertTrue(TestParser.test(input, expect, 232))
         input = """func1 : function integer (c : string, out d : boolean) {
             if(a % 5 == 1) b = 1 ;
@@ -177,7 +177,7 @@ class ParserSuite(unittest.TestCase):
             while (false) ;
             return a ;
             }"""
-        expect = "successful"
+        expect = "Error on line 7 col 48: i"
         self.assertTrue(TestParser.test(input, expect, 233))
         input = """func1 : function integer (c : string, out d : boolean) {
             a = 9b ;
@@ -209,7 +209,7 @@ class ParserSuite(unittest.TestCase):
             super();
             preventDefault();
             }"""
-        expect = "successful"
+        expect = "Error on line 5 col 23: )"
         self.assertTrue(TestParser.test(input, expect, 239))
         input = """super() ;"""
         expect = "Error on line 1 col 0: super"
@@ -294,7 +294,7 @@ class ParserSuite(unittest.TestCase):
             int1 : integer = 0 ;
             return temp[int1, int1] ;
             }"""
-        expect = "successful"
+        expect = "Error on line 4 col 24: int1"
         self.assertTrue(TestParser.test(input, expect, 256))
         input = """temp : integer = 12 ;
         func1 : function string (inherit c : string, inherit out d : string) {
@@ -309,7 +309,7 @@ class ParserSuite(unittest.TestCase):
         input = """main1 : function string () {
             printInteger(arr[2,b,3,c]) ;
             }"""
-        expect = "successful"
+        expect = "Error on line 2 col 31: b"
         self.assertTrue(TestParser.test(input, expect, 259))
         input = """main1 : function string () {
             printInteger(func1(2,3,4), func2(a,b,c), func3("sss", "oop")) ;
