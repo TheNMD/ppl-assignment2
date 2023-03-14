@@ -17,13 +17,23 @@ class ASTGeneration(MT22Visitor):
         if ctx.middle():
             idvaluelist = [ctx.ID().getText()] + self.visit(ctx.middle()) + [self.visit(ctx.expr())]
             size = len(idvaluelist)
-            vartyp = idvaluelist[int((size - 1) / 2)]
-            res = []
-            for i in range(0, int((size - 1) / 2)):
-                id = idvaluelist[i]
-                value = idvaluelist[int((size - 1) / 2 + 1 + i)]
-                res += [VarDecl(id, vartyp, value)]
-            return res
+            if size % 2 == 0:
+                vartyp = idvaluelist[int(size / 2 - 1)]
+                dimenlist = idvaluelist[int(size / 2)]
+                res = []
+                for i in range(0, int(size / 2 - 1)):
+                    id = idvaluelist[i]
+                    value = idvaluelist[int(size / 2 + 1 + i)]
+                    res += [VarDecl(id, ArrayType(dimenlist, vartyp), value)]
+                return res
+            else:
+                vartyp = idvaluelist[int((size - 1) / 2)]
+                res = []
+                for i in range(0, int((size - 1) / 2)):
+                    id = idvaluelist[i]
+                    value = idvaluelist[int((size - 1) / 2 + 1 + i)]
+                    res += [VarDecl(id, vartyp, value)]
+                return res
         else:
             idlist = self.visit(ctx.idlist())
             vartyp = self.visit(ctx.vartyp())
@@ -58,7 +68,10 @@ class ASTGeneration(MT22Visitor):
     def visitMiddle(self, ctx: MT22Parser.MiddleContext):
         if ctx.middle():
             return [ctx.ID().getText()] + self.visit(ctx.middle()) + [self.visit(ctx.expr())]
-        return [self.visit(ctx.vartyp())]
+        else:
+            if ctx.dimenlist():
+                return [self.visit(ctx.vartyp())] + [self.visit(ctx.dimenlist())]
+            return [self.visit(ctx.vartyp())]
     def visitExprlist(self, ctx: MT22Parser.ExprlistContext):
         if ctx.exprs():
             return [self.visit(ctx.expr())] + self.visit(ctx.exprs())

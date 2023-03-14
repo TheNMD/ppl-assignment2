@@ -1,3 +1,4 @@
 Program([
-	VarDecl(x, BooleanType, BinExpr(+, UnExpr(!, Id(a)), UnExpr(-, Id(b))))
+	VarDecl(a, ArrayType([3], IntegerType), ArrayLit([]))
+	VarDecl(b, ArrayType([3], IntegerType), ArrayLit([IntegerLit(3), IntegerLit(4), IntegerLit(5)]))
 ])

@@ -1,1 +1,1 @@
-x : boolean = !a + -b;
+a,b: array[3] of integer = {},{3,4,5};

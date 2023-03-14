@@ -20,11 +20,11 @@ class ASTGenSuite(unittest.TestCase):
         self.assertTrue(TestAST.test(input, expect, 301))
 
     def test2(self):
-        input = """x, y, z: array [1,2] of integer = {{}}, {{},{}}, {};"""
+        input = """a, b, c: array[3,4] of integer = {1,2,3}, {}, {};"""
         expect = """Program([
-	VarDecl(x, IntegerType, ArrayLit([ArrayLit([])]))
-	VarDecl(y, IntegerType, ArrayLit([ArrayLit([]), ArrayLit([])]))
-	VarDecl(z, IntegerType, ArrayLit([]))
+	VarDecl(a, ArrayType([3, 4], IntegerType), ArrayLit([IntegerLit(1), IntegerLit(2), IntegerLit(3)]))
+	VarDecl(b, ArrayType([3, 4], IntegerType), ArrayLit([]))
+	VarDecl(c, ArrayType([3, 4], IntegerType), ArrayLit([]))
 ])"""
         self.assertTrue(TestAST.test(input, expect, 302))
 
@@ -106,9 +106,10 @@ class ASTGenSuite(unittest.TestCase):
         self.assertTrue(TestAST.test(input, expect, 312))   
  
     def test13(self):
-        input = """x : boolean = !a + -b;"""
+        input = """a,b: array[3] of integer = {},{3,4,5};"""
         expect = """Program([
-	VarDecl(x, BooleanType, BinExpr(+, UnExpr(!, Id(a)), UnExpr(-, Id(b))))
+	VarDecl(a, ArrayType([3], IntegerType), ArrayLit([]))
+	VarDecl(b, ArrayType([3], IntegerType), ArrayLit([IntegerLit(3), IntegerLit(4), IntegerLit(5)]))
 ])"""
         self.assertTrue(TestAST.test(input, expect, 313))    
   

@@ -1,1 +1,1 @@
-x, y, z: array [1,2] of integer = {{}}, {{},{}}, {};
+a, b, c: array[3,4] of integer = {1,2,3}, {}, {};
