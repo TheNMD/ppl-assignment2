@@ -46,6 +46,37 @@ class ASTGenSuite(unittest.TestCase):
 ])"""
         self.assertTrue(TestAST.test(input, expect, 304))
         
+    def test5(self):
+        input = """x, y : integer = func(1,2,3), func1() ;"""
+        expect = """Program([
+	VarDecl(x, IntegerType, FuncCall(func, [IntegerLit(1), IntegerLit(2), IntegerLit(3)]))
+	VarDecl(y, IntegerType, FuncCall(func1, []))
+])"""
+        self.assertTrue(TestAST.test(input, expect, 305))
+
+    def test6(self):
+        input = """x, y : integer = arr[0, 1, 2], arr1[4, 5, 6] ;"""
+        expect = """Program([
+	VarDecl(x, IntegerType, ArrayCell(arr, [0, 1, 2]))
+	VarDecl(y, IntegerType, ArrayCell(arr1, [4, 5, 6]))
+])"""
+        self.assertTrue(TestAST.test(input, expect, 306))
+        
+    def test7(self):
+        input = """x, y : integer = a, b ;"""
+        expect = """Program([
+	VarDecl(x, IntegerType, Id(a))
+	VarDecl(y, IntegerType, Id(b))
+])"""
+        self.assertTrue(TestAST.test(input, expect, 307))
+ 
+    def test8(self):
+        input = """x : string = "abc" ;"""
+        expect = """Program([
+	VarDecl(x, StringType, StringLit(abc))
+])"""
+        self.assertTrue(TestAST.test(input, expect, 308))
+  
 #     def test_simple_program(self):
 #         """Simple program"""
 #         input = """main: function void () {

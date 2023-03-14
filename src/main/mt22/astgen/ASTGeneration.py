@@ -95,7 +95,7 @@ class ASTGeneration(MT22Visitor):
         if (ctx.SUBOP()):
             pass
         return self.visit(ctx.operand())
-    def visitOperand(self, ctx: MT22Parser.OperandContext): #TODO
+    def visitOperand(self, ctx: MT22Parser.OperandContext):
         if ctx.LITINT():
             return [IntegerLit(ctx.LITINT().getText())]
         elif ctx.LITFLOAT():
@@ -106,10 +106,10 @@ class ASTGeneration(MT22Visitor):
             return [StringLit(ctx.LITSTR().getText())]
         elif ctx.ID():
             if ctx.idxop():
-                pass #TODO
+                return [ArrayCell(ctx.ID().getText(), self.visit(ctx.idxop()))]
             return [Id(ctx.ID().getText())]
         elif ctx.funccall():
-            pass #TODO
+            return self.visit(ctx.funccall())
         elif ctx.subexpr():
             return self.visit(ctx.subexpr())
         elif ctx.litarr():
@@ -118,6 +118,12 @@ class ASTGeneration(MT22Visitor):
         if ctx.KWTRUE():
             return BooleanLit(True)
         return BooleanLit(False)
+    def visitIdxop(self, ctx: MT22Parser.IdxopContext):
+        return self.visit(ctx.dimenlist())
+    def visitFunccall(self, ctx: MT22Parser.FunccallContext):
+        if ctx.exprlist():
+            return [FuncCall(ctx.ID().getText(), self.visit(ctx.exprlist()))]
+        return [FuncCall(ctx.ID().getText(), [])]
     def visitSubexpr(self, ctx: MT22Parser.SubexprContext):
         return self.visit(ctx.expr())
     def visitLitarr(self, ctx: MT22Parser.LitarrContext):
