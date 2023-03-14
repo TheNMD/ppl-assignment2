@@ -84,12 +84,33 @@ class ASTGenSuite(unittest.TestCase):
 ])"""
         self.assertTrue(TestAST.test(input, expect, 309)) 
   
-    def test9(self):
+    def test10(self):
         input = """x : boolean = (a == 9) > (5 == 8) ;"""
         expect = """Program([
 	VarDecl(x, BooleanType, BinExpr(>, BinExpr(==, Id(a), IntegerLit(9)), BinExpr(==, IntegerLit(5), IntegerLit(8))))
 ])"""
-        self.assertTrue(TestAST.test(input, expect, 310)) 
+        self.assertTrue(TestAST.test(input, expect, 310))
+         
+    def test11(self):
+        input = """x : boolean = a || b || c || d && e ;"""
+        expect = """Program([
+	VarDecl(x, BooleanType, BinExpr(&&, BinExpr(||, BinExpr(||, BinExpr(||, Id(a), Id(b)), Id(c)), Id(d)), Id(e)))
+])"""
+        self.assertTrue(TestAST.test(input, expect, 311)) 
+  
+    def test12(self):
+        input = """x : float = 1 * a - 2.33e-32 / 33 + b % 33;"""
+        expect = """Program([
+	VarDecl(x, FloatType, BinExpr(+, BinExpr(-, BinExpr(*, IntegerLit(1), Id(a)), BinExpr(/, FloatLit(2.33e-32), IntegerLit(33))), BinExpr(%, Id(b), IntegerLit(33))))
+])"""
+        self.assertTrue(TestAST.test(input, expect, 312))   
+ 
+    def test13(self):
+        input = """x : boolean = !a + -b;"""
+        expect = """Program([
+	VarDecl(x, BooleanType, BinExpr(+, UnExpr(!, Id(a)), UnExpr(-, Id(b))))
+])"""
+        self.assertTrue(TestAST.test(input, expect, 313))    
   
 #     def test_simple_program(self):
 #         """Simple program"""

@@ -86,24 +86,32 @@ class ASTGeneration(MT22Visitor):
             return BinExpr(ctx.SEQLOP(), self.visit(ctx.expr2()[0]), self.visit(ctx.expr2()[1]))
         return self.visit(ctx.expr2()[0])
     def visitExpr2(self, ctx: MT22Parser.Expr2Context): #TODO
-        if (ctx.ANDOP() or ctx.OROP()):
-            pass
+        if ctx.ANDOP():
+            return BinExpr(ctx.ANDOP(), self.visit(ctx.expr2()), self.visit(ctx.expr3())) 
+        elif ctx.OROP():
+            return BinExpr(ctx.OROP(), self.visit(ctx.expr2()), self.visit(ctx.expr3())) 
         return self.visit(ctx.expr3())
     def visitExpr3(self, ctx: MT22Parser.Expr3Context): #TODO
-        if (ctx.ADDOP() or ctx.SUBOP()):
-            pass
+        if ctx.ADDOP():
+            return BinExpr(ctx.ADDOP(), self.visit(ctx.expr3()), self.visit(ctx.expr4())) 
+        elif ctx.SUBOP():
+            return BinExpr(ctx.SUBOP(), self.visit(ctx.expr3()), self.visit(ctx.expr4())) 
         return self.visit(ctx.expr4())
     def visitExpr4(self, ctx: MT22Parser.Expr4Context): #TODO
-        if (ctx.MULOP() or ctx.DIVOP() or ctx.MODOP()):
-            pass
+        if ctx.MULOP():
+            return BinExpr(ctx.MULOP(), self.visit(ctx.expr4()), self.visit(ctx.expr5())) 
+        elif ctx.DIVOP():
+            return BinExpr(ctx.DIVOP(), self.visit(ctx.expr4()), self.visit(ctx.expr5()))
+        elif ctx.MODOP():
+            return BinExpr(ctx.MODOP(), self.visit(ctx.expr4()), self.visit(ctx.expr5()))  
         return self.visit(ctx.expr5())
     def visitExpr5(self, ctx: MT22Parser.Expr5Context): #TODO
-        if (ctx.EXCOP()):
-            pass
+        if ctx.EXCOP():
+            return UnExpr(ctx.EXCOP(), self.visit(ctx.expr5()))
         return self.visit(ctx.expr6())
     def visitExpr6(self, ctx: MT22Parser.Expr6Context): #TODO
-        if (ctx.SUBOP()):
-            pass
+        if ctx.SUBOP():
+            return UnExpr(ctx.SUBOP(), self.visit(ctx.expr6()))
         return self.visit(ctx.operand())
     def visitOperand(self, ctx: MT22Parser.OperandContext):
         if ctx.LITINT():
