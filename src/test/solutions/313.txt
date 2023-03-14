@@ -1,4 +1,5 @@
 Program([
-	VarDecl(a, ArrayType([3], IntegerType), ArrayLit([]))
-	VarDecl(b, ArrayType([3], IntegerType), ArrayLit([IntegerLit(3), IntegerLit(4), IntegerLit(5)]))
+	VarDecl(a, ArrayType([3, 4, 5], IntegerType), ArrayLit([]))
+	VarDecl(b, ArrayType([3, 4, 5], IntegerType), ArrayLit([ArrayLit([]), ArrayLit([])]))
+	VarDecl(c, ArrayType([3, 4, 5], IntegerType), ArrayLit([ArrayLit([ArrayLit([]), ArrayLit([])]), ArrayLit([])]))
 ])

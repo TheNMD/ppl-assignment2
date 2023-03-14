@@ -106,12 +106,22 @@ class ASTGenSuite(unittest.TestCase):
         self.assertTrue(TestAST.test(input, expect, 312))   
  
     def test13(self):
-        input = """a,b: array[3] of integer = {},{3,4,5};"""
+        input = """a,b,c: array[3,4,5] of integer = {},{{},{}}, {{{},{}},{}};"""
         expect = """Program([
-	VarDecl(a, ArrayType([3], IntegerType), ArrayLit([]))
-	VarDecl(b, ArrayType([3], IntegerType), ArrayLit([IntegerLit(3), IntegerLit(4), IntegerLit(5)]))
+	VarDecl(a, ArrayType([3, 4, 5], IntegerType), ArrayLit([]))
+	VarDecl(b, ArrayType([3, 4, 5], IntegerType), ArrayLit([ArrayLit([]), ArrayLit([])]))
+	VarDecl(c, ArrayType([3, 4, 5], IntegerType), ArrayLit([ArrayLit([ArrayLit([]), ArrayLit([])]), ArrayLit([])]))
 ])"""
         self.assertTrue(TestAST.test(input, expect, 313))    
+  
+    def test14(self):
+        input = """a,b,c: array[3,4,5] of integer = {1,2,3},{{1,2},{3,4}}, {{{1,22},{33,4}},{77,88}};"""
+        expect = """Program([
+	VarDecl(a, ArrayType([3, 4, 5], IntegerType), ArrayLit([]))
+	VarDecl(b, ArrayType([3, 4, 5], IntegerType), ArrayLit([ArrayLit([]), ArrayLit([])]))
+	VarDecl(c, ArrayType([3, 4, 5], IntegerType), ArrayLit([ArrayLit([ArrayLit([]), ArrayLit([])]), ArrayLit([])]))
+])"""
+        self.assertTrue(TestAST.test(input, expect, 314)) 
   
 #     def test_simple_program(self):
 #         """Simple program"""
