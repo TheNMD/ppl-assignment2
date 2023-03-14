@@ -59,11 +59,19 @@ class ASTGeneration(MT22Visitor):
         if ctx.middle():
             return [ctx.ID().getText()] + self.visit(ctx.middle()) + self.visit(ctx.expr())
         return [self.visit(ctx.vartyp())]
+    def visitExprlist(self, ctx: MT22Parser.ExprlistContext):
+        if ctx.exprs():
+            return self.visit(ctx.expr()) + self.visit(ctx.exprs())
+        return self.visit(ctx.expr())
+    def visitExprs(self, ctx: MT22Parser.ExprsContext):
+        if ctx.exprs():
+            return self.visit(ctx.expr()) + self.visit(ctx.exprs())
+        return []
     def visitExpr(self, ctx: MT22Parser.ExprContext): #TODO
         if ctx.CONCATOP():
             pass
         return self.visit(ctx.expr1()[0])
-    def visitExpr1(self, ctx: MT22Parser.Expr1Context): #TODO
+    def visitExpr1(self, ctx: MT22Parser.Expr1Context):
         if (ctx.EQLOP() or ctx.DIFOP() or ctx.LARGEOP() or ctx.LEQLOP() or ctx.SMALLOP() or ctx.SEQLOP()):
             pass
         return self.visit(ctx.expr2()[0])
@@ -91,21 +99,28 @@ class ASTGeneration(MT22Visitor):
         if ctx.LITINT():
             return [IntegerLit(ctx.LITINT().getText())]
         elif ctx.LITFLOAT():
-            return [FloatLit(ctx.LITINT().getText())]
+            return [FloatLit(ctx.LITFLOAT().getText())]
         elif ctx.litboo():
             return [self.visit(ctx.litboo())]
-        elif ctx.StringLit():
-            return [StringLit(ctx.LITINT().getText())]
+        elif ctx.LITSTR():
+            return [StringLit(ctx.LITSTR().getText())]
         elif ctx.ID():
             if ctx.idxop():
                 pass #TODO
             return [Id(ctx.ID().getText())]
-        elif ctx.funcall():
+        elif ctx.funccall():
             pass #TODO
         elif ctx.subexpr():
-            return self.visit(ctx.subexpr()) # TODO
-        return self.visit(ctx.litarr()) # TODO
-    def visitLitboo(self, ctx: MT22Parser.LitbooContext): #TODO
+            return self.visit(ctx.subexpr())
+        elif ctx.litarr():
+            return [self.visit(ctx.litarr())]
+    def visitLitboo(self, ctx: MT22Parser.LitbooContext):
         if ctx.KWTRUE():
             return BooleanLit(True)
         return BooleanLit(False)
+    def visitSubexpr(self, ctx: MT22Parser.SubexprContext):
+        return self.visit(ctx.expr())
+    def visitLitarr(self, ctx: MT22Parser.LitarrContext):
+        if ctx.exprlist():
+            return ArrayLit(self.visit(ctx.exprlist()))
+        return ArrayLit([])

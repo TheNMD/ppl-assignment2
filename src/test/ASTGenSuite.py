@@ -4,7 +4,7 @@ from AST import *
 
 
 class ASTGenSuite(unittest.TestCase):
-    def test_short_vardecl(self):
+    def test1(self):
         input = """x,y,z,a,b,c: array [1,2,3] of integer; a,b,c: array [4,6,7] of float;"""
         expect = """Program([
 	VarDecl(x, ArrayType([1, 2, 3], IntegerType))
@@ -19,23 +19,32 @@ class ASTGenSuite(unittest.TestCase):
 ])"""
         self.assertTrue(TestAST.test(input, expect, 301))
 
-    def test_full_vardecl(self):
-        input = """x, y, z: integer = 1, 2, 3;"""
+    def test2(self):
+        input = """x, y, z: array [1,2] of integer = {{}}, {{},{}}, {};"""
         expect = """Program([
-	VarDecl(x, IntegerType, IntegerLit(1))
-	VarDecl(y, IntegerType, IntegerLit(2))
-	VarDecl(z, IntegerType, IntegerLit(3))
+	VarDecl(x, IntegerType, ArrayLit([ArrayLit([])]))
+	VarDecl(y, IntegerType, ArrayLit([ArrayLit([]), ArrayLit([])]))
+	VarDecl(z, IntegerType, ArrayLit([]))
 ])"""
         self.assertTrue(TestAST.test(input, expect, 302))
 
-    def test_full_vardecl(self):
-        input = """x, y, z: integer = true, false, true;"""
+    def test3(self):
+        input = """x, y, z: float = 1.2, 3e12, 1_33.33e-23;"""
         expect = """Program([
-	VarDecl(x, IntegerType, IntegerLit(1))
-	VarDecl(y, IntegerType, IntegerLit(2))
-	VarDecl(z, IntegerType, IntegerLit(3))
+	VarDecl(x, FloatType, FloatLit(1.2))
+	VarDecl(y, FloatType, FloatLit(3e12))
+	VarDecl(z, FloatType, FloatLit(133.33e-23))
 ])"""
         self.assertTrue(TestAST.test(input, expect, 303))
+
+    def test4(self):
+        input = """x, y, z: boolean = true, false, true;"""
+        expect = """Program([
+	VarDecl(x, BooleanType, BooleanLit(True))
+	VarDecl(y, BooleanType, BooleanLit(False))
+	VarDecl(z, BooleanType, BooleanLit(True))
+])"""
+        self.assertTrue(TestAST.test(input, expect, 304))
         
 #     def test_simple_program(self):
 #         """Simple program"""
@@ -44,7 +53,7 @@ class ASTGenSuite(unittest.TestCase):
 #         expect = """Program([
 # 	FuncDecl(main, VoidType, [], None, BlockStmt([]))
 # ])"""
-#         self.assertTrue(TestAST.test(input, expect, 304))
+#         self.assertTrue(TestAST.test(input, expect, 305))
 
 #     def test_more_complex_program(self):
 #         """More complex program"""
@@ -54,5 +63,5 @@ class ASTGenSuite(unittest.TestCase):
 #         expect = """Program([
 # 	FuncDecl(main, VoidType, [], None, BlockStmt([]))
 # ])"""
-#         self.assertTrue(TestAST.test(input, expect, 305))
+#         self.assertTrue(TestAST.test(input, expect, 306))
 

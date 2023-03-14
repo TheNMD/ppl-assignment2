@@ -1,1 +1,1 @@
-x, y, z: integer = true, false, true;
+x, y, z: array [1,2] of integer = {{}}, {{},{}}, {};
