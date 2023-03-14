@@ -76,6 +76,20 @@ class ASTGenSuite(unittest.TestCase):
 	VarDecl(x, StringType, StringLit(abc))
 ])"""
         self.assertTrue(TestAST.test(input, expect, 308))
+ 
+    def test9(self):
+        input = """x : string = ("abc"::"cde")::"xyz" ;"""
+        expect = """Program([
+	VarDecl(x, StringType, BinExpr(::, BinExpr(::, StringLit(abc), StringLit(cde)), StringLit(xyz)))
+])"""
+        self.assertTrue(TestAST.test(input, expect, 309)) 
+  
+    def test9(self):
+        input = """x : boolean = (a == 9) > (5 == 8) ;"""
+        expect = """Program([
+	VarDecl(x, BooleanType, BinExpr(>, BinExpr(==, Id(a), IntegerLit(9)), BinExpr(==, IntegerLit(5), IntegerLit(8))))
+])"""
+        self.assertTrue(TestAST.test(input, expect, 310)) 
   
 #     def test_simple_program(self):
 #         """Simple program"""

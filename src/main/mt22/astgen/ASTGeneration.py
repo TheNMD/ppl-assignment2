@@ -15,7 +15,7 @@ class ASTGeneration(MT22Visitor):
         return self.visit(ctx.funcdecl())
     def visitVardecl(self, ctx: MT22Parser.VardeclContext):
         if ctx.middle():
-            idvaluelist = [ctx.ID().getText()] + self.visit(ctx.middle()) + self.visit(ctx.expr())
+            idvaluelist = [ctx.ID().getText()] + self.visit(ctx.middle()) + [self.visit(ctx.expr())]
             size = len(idvaluelist)
             vartyp = idvaluelist[int((size - 1) / 2)]
             res = []
@@ -57,23 +57,33 @@ class ASTGeneration(MT22Visitor):
         return []
     def visitMiddle(self, ctx: MT22Parser.MiddleContext):
         if ctx.middle():
-            return [ctx.ID().getText()] + self.visit(ctx.middle()) + self.visit(ctx.expr())
+            return [ctx.ID().getText()] + self.visit(ctx.middle()) + [self.visit(ctx.expr())]
         return [self.visit(ctx.vartyp())]
     def visitExprlist(self, ctx: MT22Parser.ExprlistContext):
         if ctx.exprs():
-            return self.visit(ctx.expr()) + self.visit(ctx.exprs())
-        return self.visit(ctx.expr())
+            return [self.visit(ctx.expr())] + self.visit(ctx.exprs())
+        return [self.visit(ctx.expr())]
     def visitExprs(self, ctx: MT22Parser.ExprsContext):
         if ctx.exprs():
-            return self.visit(ctx.expr()) + self.visit(ctx.exprs())
+            return [self.visit(ctx.expr())] + self.visit(ctx.exprs())
         return []
     def visitExpr(self, ctx: MT22Parser.ExprContext): #TODO
         if ctx.CONCATOP():
-            pass
+            return BinExpr(ctx.CONCATOP(), self.visit(ctx.expr1()[0]), self.visit(ctx.expr1()[1]))
         return self.visit(ctx.expr1()[0])
     def visitExpr1(self, ctx: MT22Parser.Expr1Context):
-        if (ctx.EQLOP() or ctx.DIFOP() or ctx.LARGEOP() or ctx.LEQLOP() or ctx.SMALLOP() or ctx.SEQLOP()):
-            pass
+        if ctx.EQLOP():
+            return BinExpr(ctx.EQLOP(), self.visit(ctx.expr2()[0]), self.visit(ctx.expr2()[1])) 
+        elif ctx.DIFOP():
+            return BinExpr(ctx.DIFOP(), self.visit(ctx.expr2()[0]), self.visit(ctx.expr2()[1])) 
+        elif ctx.LARGEOP():
+            return BinExpr(ctx.LARGEOP(), self.visit(ctx.expr2()[0]), self.visit(ctx.expr2()[1])) 
+        elif ctx.LEQLOP():
+            return BinExpr(ctx.LEQLOP(), self.visit(ctx.expr2()[0]), self.visit(ctx.expr2()[1])) 
+        elif ctx.SMALLOP():
+            return BinExpr(ctx.SMALLOP(), self.visit(ctx.expr2()[0]), self.visit(ctx.expr2()[1])) 
+        elif ctx.SEQLOP():
+            return BinExpr(ctx.SEQLOP(), self.visit(ctx.expr2()[0]), self.visit(ctx.expr2()[1]))
         return self.visit(ctx.expr2()[0])
     def visitExpr2(self, ctx: MT22Parser.Expr2Context): #TODO
         if (ctx.ANDOP() or ctx.OROP()):
@@ -97,23 +107,23 @@ class ASTGeneration(MT22Visitor):
         return self.visit(ctx.operand())
     def visitOperand(self, ctx: MT22Parser.OperandContext):
         if ctx.LITINT():
-            return [IntegerLit(ctx.LITINT().getText())]
+            return IntegerLit(ctx.LITINT().getText())
         elif ctx.LITFLOAT():
-            return [FloatLit(ctx.LITFLOAT().getText())]
+            return FloatLit(ctx.LITFLOAT().getText())
         elif ctx.litboo():
-            return [self.visit(ctx.litboo())]
+            return self.visit(ctx.litboo())
         elif ctx.LITSTR():
-            return [StringLit(ctx.LITSTR().getText())]
+            return StringLit(ctx.LITSTR().getText())
         elif ctx.ID():
             if ctx.idxop():
-                return [ArrayCell(ctx.ID().getText(), self.visit(ctx.idxop()))]
-            return [Id(ctx.ID().getText())]
+                return ArrayCell(ctx.ID().getText(), self.visit(ctx.idxop()))
+            return Id(ctx.ID().getText())
         elif ctx.funccall():
             return self.visit(ctx.funccall())
         elif ctx.subexpr():
             return self.visit(ctx.subexpr())
         elif ctx.litarr():
-            return [self.visit(ctx.litarr())]
+            return self.visit(ctx.litarr())
     def visitLitboo(self, ctx: MT22Parser.LitbooContext):
         if ctx.KWTRUE():
             return BooleanLit(True)
@@ -122,8 +132,8 @@ class ASTGeneration(MT22Visitor):
         return self.visit(ctx.dimenlist())
     def visitFunccall(self, ctx: MT22Parser.FunccallContext):
         if ctx.exprlist():
-            return [FuncCall(ctx.ID().getText(), self.visit(ctx.exprlist()))]
-        return [FuncCall(ctx.ID().getText(), [])]
+            return FuncCall(ctx.ID().getText(), self.visit(ctx.exprlist()))
+        return FuncCall(ctx.ID().getText(), [])
     def visitSubexpr(self, ctx: MT22Parser.SubexprContext):
         return self.visit(ctx.expr())
     def visitLitarr(self, ctx: MT22Parser.LitarrContext):
