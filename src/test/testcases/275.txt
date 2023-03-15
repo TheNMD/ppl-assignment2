@@ -1,1 +1,5 @@
-int0 : Integer ;
+main: function void(){
+	{
+		return true;
+	}
+}

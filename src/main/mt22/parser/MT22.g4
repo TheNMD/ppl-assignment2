@@ -125,7 +125,7 @@ EQL : '=' ;
 // Literals
 LITINT : [0-9] | [1-9][0-9_]*[0-9] {self.text = self.text.replace('_','')} ;
 
-LITFLOAT : LITINT Decimal? Exponent?  {self.text = self.text.replace('_','')} ;
+LITFLOAT : LITINT Decimal? Exponent? | LITINT? Decimal Exponent? | LITINT? Decimal? Exponent   {self.text = self.text.replace('_','')} ;
 
 fragment Decimal : DOT [0-9]* ;
 
@@ -174,7 +174,7 @@ paralist : para paras | ;
 
 paras : CM para paras | ;
 
-para :  KWINHERIT? KWOUT? ID CL vartyp ;
+para :  KWINHERIT? KWOUT? ID CL vartyp |  ;
 
 funcbody : blockstmt ;
 

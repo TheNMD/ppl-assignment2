@@ -1,1 +1,3 @@
-_A330xr : integer ;
+main: funtion void() {
+    foo(out a: string);
+}

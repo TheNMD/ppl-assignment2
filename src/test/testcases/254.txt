@@ -1,7 +1,3 @@
-func1 : function string (inherit c : string, inherit out d : string) {
-            temp : integer = 0 ;
-            return temp ;
-            }
-            func2 : function float (a : integer, out b : integer) {
-            return func1(2,3,5) ;   
-            }
+test_expr: function float ()
+	if (true) print(a+b+c+2.02);
+}

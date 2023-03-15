@@ -1,1 +1,7 @@
-int0 : array [22 of float ;
+
+main: function void (argv: array[100] of string, args: integer){
+	if (args == 0) break;
+	else {
+		expr_val = a * b + c - d /e + g*123%h;
+	}
+}

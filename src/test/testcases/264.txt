@@ -1,1 +1,4 @@
-9a : integer = b ;
+main: function void() {
+    if(condi == true)
+	printInteger(129831273);
+}

@@ -1,1 +1,5 @@
- a : string = "213123213\'" ;  
+main: function void() {
+    do {
+        booealn = booealn -1;
+    } while (true);
+}

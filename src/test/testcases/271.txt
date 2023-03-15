@@ -1,3 +1,4 @@
-main1 : function string () {
-            temp = printBoolean();
-            }
+index_expr: function float(a,b,c:float,) {
+	my_array: array[100] of float;
+	if (x != 2) new_ele = my_array[2+5,92,17];
+}

@@ -1,1 +1,5 @@
-int223 : array [2,2,2] of boolean = {{{true,false},{true,true}},{false, false},{false, true}}} ;
+main: function void {
+	{
+		return true;
+	}
+}

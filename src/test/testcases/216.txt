@@ -1,6 +1,1 @@
-func1 : function integer (c : string, out d : boolean) {
-            if(a == 5) c = a % 7 ;
-            else if (a == 4) d = a / 8 ;
-            else randarr : integer = 9 * 44 * 5 + c - d ;
-            return 0;
-            }
+error1,error2 = 4,5;

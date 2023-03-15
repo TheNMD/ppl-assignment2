@@ -1,4 +1,3 @@
-main1 : function string () {
-            bool = "abc\t" != "abc	" ;
-            return ;
-            }
+main: function void(out inherit var1: auto) {
+	break;
+}

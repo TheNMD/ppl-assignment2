@@ -1,4 +1,4 @@
-func1 : function float (c : string, out d : boolean) {
-            a,b : array [2,3] of float = {{2.e12, 111_22.33}, {4.42e-23, 223}, {44., 7E23}}, {{99.223e32, 77__99e-2},{8_0_0_8.2233, 66.e1},{70_77, 0}} ;
-            return a ;
-            }
+main: function array[5,2] of string (a,b,c:integer, inherit d,e: array[3] of integer) {
+	x,y : float = 9e10, 2e5;
+	if (x!=2) break;
+}

@@ -1,1 +1,1 @@
-xyxx : array [2] of string ;
+q1,q2,_q3: auto;

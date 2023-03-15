@@ -1,3 +1,4 @@
-func1 : function string (inherit c : string, inherit out d : string) {
-            a : string = c :: d :: "abc" ;
-            }
+infinite_for_loop: function void(){
+	for (i=1, i>0, i+1)
+		print_float(.1e8)
+}

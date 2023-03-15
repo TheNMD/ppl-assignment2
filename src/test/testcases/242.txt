@@ -1,1 +1,6 @@
-int1 : integer = ((())) ;
+main: function void() {
+    for(i= new_array[29 *821 %1210 -1128], i <= 1, i+1)
+        for(j = i-1, j!=0, j-1) {
+            print_integer(j,i);
+        }
+}

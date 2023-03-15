@@ -1,11 +1,1 @@
-func1 : function integer (c : string, out d : boolean) {
-            if(a % 5 == 1) b = 1 ;
-            else if (a % 5 == 2) b = 2 ;
-            else if (a % 5 == 3) b = 3 ;
-            else do
-            {
-                for (i = 0, i < 100, i + 1) arr[i] = false ;
-            }
-            while (false) ;
-            return a ;
-            }
+a : auto = divide(90,foo(a,template(abcs())));

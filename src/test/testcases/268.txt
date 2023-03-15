@@ -1,1 +1,5 @@
-int1 : int = 7 + 12 ;
+run6: function void(inherit out p: float, out i: float, out d: float){
+            p = -24 * i + d :: 128;
+            i = -837 * 0.682 + 32;
+            d = -823 % p * i;
+}

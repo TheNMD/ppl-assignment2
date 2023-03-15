@@ -1,1 +1,3 @@
-str1 : string = "\t\"\n	" :: "			ssset\r"; 
+array_type_func: function array[3] of integer(){
+    return {1,2,5};
+}

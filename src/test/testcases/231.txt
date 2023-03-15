@@ -1,1 +1,5 @@
-str : string = "" ; 
+bool_expr: function float() inherit main{
+	bolean1, bolean2, bolean3, bolean4: boolean = true,false,false,true;
+	if (bolean1 == true) continue;
+	else bool_value = !bolean1 && bolean2 || bolean1;
+}

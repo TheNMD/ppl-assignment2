@@ -1,4 +1,15 @@
-main1 : function string () {
-            bool = 7 - 9 < 4 - 6 ;
-            return ;
-            }
+main: function void(){
+	new_value : auto = 2109*"jnasbc"+89.e82/831 && (true);
+}
+
+random_test_function: function float(){
+	a,b: integer = 3,4;
+	strin1, strin2 = "akajcsna","jhcbahscb";
+	while (true){
+		print(a+b);
+		a = a - 1;
+		b = b%a+a;
+		if (a+b <=100)
+			break;
+	}
+}

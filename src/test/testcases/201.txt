@@ -1,1 +1,1 @@
-x : integer
+mt222: integer;

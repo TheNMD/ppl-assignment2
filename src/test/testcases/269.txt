@@ -1,1 +1,5 @@
-boo1,boo2,boo3 : boolean = true,false,false||true ;
+run1: function void(inherit out p: float, out i: float, out d: float){
+            p = -24i + d / 128;
+            i = -837 * 0.842 + 32;
+            d = -823 % p * i;
+}

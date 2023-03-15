@@ -1,4 +1,3 @@
-func1 : function void (c : string, out d : boolean) { 
-            do { for (i = 7, i < 13, i + 1) printInteger(i) ; }
-            while (True) ;
-            }
+main: function void (a,b,c:integer,d,e: array[3] of integer) {
+	break;
+}

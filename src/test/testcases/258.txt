@@ -1,1 +1,2 @@
-main : function void () {}
+main function void() { prinf("Degree of freedom is"); prinf(degreeOfFreedom); prinf("
+"); p: float = 0.328;

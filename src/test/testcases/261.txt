@@ -1,11 +1,6 @@
-main1 : function string () {
-                {
-                    {
-                        {
-                            {
-                                return "123" :: "abc	\t" ;
-                            }
-                        }   
-                    }
-                }
-            }
+main: function void (argv: array[3] of string, out args: integer ) {
+	a: integer = 20
+	_abc_xyz: auto = 1280.128e2;
+	if (_abc_xyz<=100) a = a+100;
+	else a= a - 100;
+}

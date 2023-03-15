@@ -1,1 +1,3 @@
-auto : integer ;
+main: function void() {
+    a: string = c||d&&g;
+}

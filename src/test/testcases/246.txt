@@ -1,3 +1,10 @@
-func1 : function string (inherit c : string, inherit out d : string) {
-            a : string = c :: (d :: "abc") ;
-            }
+nested_if_func: function boolean (a,b,c,d,e,f: boolean){
+	if (a){
+		if (b)
+		{
+			if (c)
+				break;
+		}
+	}
+	else print("nothing happenned");
+}

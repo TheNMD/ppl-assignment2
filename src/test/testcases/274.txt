@@ -1,1 +1,6 @@
-Auto : integer ;
+nested_cond_func: function boolean (){
+	if (a>=c){
+		if (a>=b) else return;
+	}
+	else print("FALSE")
+}

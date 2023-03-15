@@ -1,1 +1,1 @@
-while : string = "ddxxee				\"" ;
+main: function void()

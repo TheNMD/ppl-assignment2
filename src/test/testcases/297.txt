@@ -1,4 +1,6 @@
-main1 : function string () {
-            bool = ((1 < 2) < 3) < 4 ;
-            return ;
-            }
+function: function void (out a,b: integer){
+	c: integer = a;
+	a = b;
+	b = c;
+	print("New value of a and b after exchange",a,b);
+}

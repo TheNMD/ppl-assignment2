@@ -1,1 +1,5 @@
-int1 : integer
+find_gcd: function integer (a: integer) {
+	for (i=50,i<20, i+1){
+		if (i%2==0)	break;
+	}
+}

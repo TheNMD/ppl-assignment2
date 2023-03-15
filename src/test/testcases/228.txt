@@ -1,4 +1,7 @@
-func1 : function float (c : string, out d : boolean) {
-            boo1 : boolean = !abc[2] && cde[0,1] ; 
-            return boo1 ;
-            }
+main: function void(){
+}
+
+concat_expr: function float() inherit main{
+	str1, str2: string = "abc","";
+	if (true) return str1::str2;
+}

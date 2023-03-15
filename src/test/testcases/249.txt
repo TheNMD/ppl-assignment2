@@ -1,3 +1,10 @@
-func1 : function string (inherit c : string, inherit out d : string) {
-            a : float = (!a || false) != (-b < c) ;
+nested_decl: function void() {
+    {
+        {
+            {
+                {
+                    array_int: array[5] of integer;
+                }
             }
+        }
+    }

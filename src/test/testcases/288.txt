@@ -1,1 +1,7 @@
-int223 : array [2,2,2] of boolean = {{{true,False},{True,true}},{{false, false},{False, true}}} ;
+nested_cond_func: function void auto integer (){
+	if (a>=c){
+		if (a>=b)
+			print("TRUE");
+	}
+	else print("FALSE")
+}
