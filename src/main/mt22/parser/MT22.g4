@@ -192,11 +192,11 @@ matchstmt : KWIF LB expr RB matchstmt KWELSE matchstmt | (stmt | forstmt | while
 
 unmatchstmt : KWIF LB expr RB ifstmt | KWIF LB expr RB matchstmt KWELSE unmatchstmt ;
 
-assignstmt : ID idxop? EQL expr ;
-
 forstmt : KWFOR LB assignstmt CM expr CM expr RB (stmt | ifstmt | forstmt | whilestmt | blockstmt) ;
 
-whilestmt : KWWHILE LB expr RB (stmt+ | ifstmt | forstmt | whilestmt | blockstmt) ;
+whilestmt : KWWHILE LB expr RB (stmt | ifstmt | forstmt | whilestmt | blockstmt) ;
+
+assignstmt : ID idxop? EQL expr ;
 
 dowhilestmt : KWDO blockstmt KWWHILE LB expr RB ;
 
@@ -206,7 +206,7 @@ continuestmt : KWCONT ;
 
 rtnstmt : KWRTN (expr)? ;
 
-callstmt : (funccall | specialfunc) ;
+callstmt : (ID LB RB | ID LB exprlist RB | specialfunc) ;
 
 specialfunc : ('readInteger' | 'readFloat' | 'readBoolean' | 'readString' | 'preventDefault') LB RB 
 			| ('printInteger' | 'writeFloat' | 'printBoolean' | 'printString' | 'super') LB exprlist RB ;

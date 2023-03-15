@@ -153,14 +153,60 @@ class ASTGenSuite(unittest.TestCase):
 	FuncDecl(main, VoidType, [], None, BlockStmt([IfStmt(BinExpr(==, Id(a), IntegerLit(9)), AssignStmt(Id(b), IntegerLit(7)))]))
 ])"""
         self.assertTrue(TestAST.test(input, expect, 317))
+        
+    def test18(self):
+        """Simple program"""
+        input = """main: function void () {
+                if (a == 9) b = 7 ;
+                else if (c == 9) b = 5 ;
+                else b = 20 ;
+        }"""
+        expect = """Program([
+	FuncDecl(main, VoidType, [], None, BlockStmt([IfStmt(BinExpr(==, Id(a), IntegerLit(9)), AssignStmt(Id(b), IntegerLit(7)), IfStmt(BinExpr(==, Id(c), IntegerLit(9)), AssignStmt(Id(b), IntegerLit(5)), AssignStmt(Id(b), IntegerLit(20))))]))
+])"""
+        self.assertTrue(TestAST.test(input, expect, 318))
 
-#     def test15(self):
-#         """More complex program"""
-#         input = """main: function void () {
-#             printInteger(4);
-#         }"""
-#         expect = """Program([
-# 	FuncDecl(main, VoidType, [], None, BlockStmt([]))
-# ])"""
-#         self.assertTrue(TestAST.test(input, expect, 316))
+    def test19(self):
+        """Simple program"""
+        input = """foo: function void (inherit a: integer, inherit out b: float) inherit bar {}
+        main: function void () {
+        {
+
+        }
+        }"""
+        expect = """Program([
+	FuncDecl(foo, VoidType, [InheritParam(a, IntegerType), InheritOutParam(b, FloatType)], bar, BlockStmt([]))
+	FuncDecl(main, VoidType, [], None, BlockStmt([BlockStmt([])]))
+])"""
+        self.assertTrue(TestAST.test(input, expect, 319))
+
+    def test20(self):
+        """Simple program"""
+        input = """main: function void () {
+                if (a == 9)
+                {
+                        for (i = 5, i < 10, i + 1) a = a + i;
+                }
+                else if (c == 9)
+                {
+                        i : integer = 23 ;
+                        while (i < 5) i = i + 1 ;
+                }
+                else b = 20 ;
+                return ;
+        }"""
+        expect = """Program([
+	FuncDecl(main, VoidType, [], None, BlockStmt([IfStmt(BinExpr(==, Id(a), IntegerLit(9)), BlockStmt([ForStmt(AssignStmt(Id(i), IntegerLit(5)), BinExpr(<, Id(i), IntegerLit(10)), BinExpr(+, Id(i), IntegerLit(1)), AssignStmt(Id(a), BinExpr(+, Id(a), Id(i))))]), IfStmt(BinExpr(==, Id(c), IntegerLit(9)), BlockStmt([VarDecl(i, IntegerType, IntegerLit(23)), WhileStmt(BinExpr(<, Id(i), IntegerLit(5)), AssignStmt(Id(i), BinExpr(+, Id(i), IntegerLit(1))))]), AssignStmt(Id(b), IntegerLit(20)))), ReturnStmt()]))
+])"""
+        self.assertTrue(TestAST.test(input, expect, 320))
+
+    def test21(self):
+        """More complex program"""
+        input = """main: function void () {
+            printInteger(4);
+        }"""
+        expect = """Program([
+	FuncDecl(main, VoidType, [], None, BlockStmt([CallStmt(printInteger, IntegerLit(4))]))
+])"""
+        self.assertTrue(TestAST.test(input, expect, 321))
 
