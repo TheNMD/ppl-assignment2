@@ -63,11 +63,11 @@ class ASTGeneration(MT22Visitor):
         return AutoType()
     def visitDimenlist(self, ctx: MT22Parser.DimenlistContext):
         if ctx.dimens():
-            return [ctx.LITINT().getText()] + self.visit(ctx.dimens())
-        return [ctx.LITINT().getText()]
+            return [self.visit(ctx.expr())] + self.visit(ctx.dimens())
+        return [self.visit(ctx.expr())]
     def visitDimens(self, ctx: MT22Parser.DimensContext):
         if ctx.dimens():
-            return [ctx.LITINT().getText()] + self.visit(ctx.dimens())
+            return [self.visit(ctx.expr())] + self.visit(ctx.dimens())
         return []
     def visitMiddle(self, ctx: MT22Parser.MiddleContext):
         if ctx.middle():

@@ -1,5 +1,5 @@
 new_array: array[200] of float;
 main: function void(){
 if (true)
-	new_array[20] = new_array[new_array[2] *20 + 82e-7 -100_712 /10 %20];
+	new_array[20] = new_array[-new_array[2] *20 + 82e-7 -100_712 /10 %20];
 }

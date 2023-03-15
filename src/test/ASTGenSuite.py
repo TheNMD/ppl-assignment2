@@ -7,24 +7,24 @@ class ASTGenSuite(unittest.TestCase):
     def test1(self):
         input = """x,y,z,a,b,c: array [1,2,3] of integer; a,b,c: array [4,6,7] of float;"""
         expect = """Program([
-	VarDecl(x, ArrayType([1, 2, 3], IntegerType))
-	VarDecl(y, ArrayType([1, 2, 3], IntegerType))
-	VarDecl(z, ArrayType([1, 2, 3], IntegerType))
-	VarDecl(a, ArrayType([1, 2, 3], IntegerType))
-	VarDecl(b, ArrayType([1, 2, 3], IntegerType))
-	VarDecl(c, ArrayType([1, 2, 3], IntegerType))
-	VarDecl(a, ArrayType([4, 6, 7], FloatType))
-	VarDecl(b, ArrayType([4, 6, 7], FloatType))
-	VarDecl(c, ArrayType([4, 6, 7], FloatType))
+	VarDecl(x, ArrayType([IntegerLit(1), IntegerLit(2), IntegerLit(3)], IntegerType))
+	VarDecl(y, ArrayType([IntegerLit(1), IntegerLit(2), IntegerLit(3)], IntegerType))
+	VarDecl(z, ArrayType([IntegerLit(1), IntegerLit(2), IntegerLit(3)], IntegerType))
+	VarDecl(a, ArrayType([IntegerLit(1), IntegerLit(2), IntegerLit(3)], IntegerType))
+	VarDecl(b, ArrayType([IntegerLit(1), IntegerLit(2), IntegerLit(3)], IntegerType))
+	VarDecl(c, ArrayType([IntegerLit(1), IntegerLit(2), IntegerLit(3)], IntegerType))
+	VarDecl(a, ArrayType([IntegerLit(4), IntegerLit(6), IntegerLit(7)], FloatType))
+	VarDecl(b, ArrayType([IntegerLit(4), IntegerLit(6), IntegerLit(7)], FloatType))
+	VarDecl(c, ArrayType([IntegerLit(4), IntegerLit(6), IntegerLit(7)], FloatType))
 ])"""
         self.assertTrue(TestAST.test(input, expect, 301))
 
     def test2(self):
         input = """a, b, c: array[3,4] of integer = {1,2,3}, {}, {};"""
         expect = """Program([
-	VarDecl(a, ArrayType([3, 4], IntegerType), ArrayLit([IntegerLit(1), IntegerLit(2), IntegerLit(3)]))
-	VarDecl(b, ArrayType([3, 4], IntegerType), ArrayLit([]))
-	VarDecl(c, ArrayType([3, 4], IntegerType), ArrayLit([]))
+	VarDecl(a, ArrayType([IntegerLit(3), IntegerLit(4)], IntegerType), ArrayLit([IntegerLit(1), IntegerLit(2), IntegerLit(3)]))
+	VarDecl(b, ArrayType([IntegerLit(3), IntegerLit(4)], IntegerType), ArrayLit([]))
+	VarDecl(c, ArrayType([IntegerLit(3), IntegerLit(4)], IntegerType), ArrayLit([]))
 ])"""
         self.assertTrue(TestAST.test(input, expect, 302))
 
@@ -57,8 +57,8 @@ class ASTGenSuite(unittest.TestCase):
     def test6(self):
         input = """x, y : integer = arr[0, 1, 2], arr1[4, 5, 6] ;"""
         expect = """Program([
-	VarDecl(x, IntegerType, ArrayCell(arr, [0, 1, 2]))
-	VarDecl(y, IntegerType, ArrayCell(arr1, [4, 5, 6]))
+	VarDecl(x, IntegerType, ArrayCell(arr, [IntegerLit(0), IntegerLit(1), IntegerLit(2)]))
+	VarDecl(y, IntegerType, ArrayCell(arr1, [IntegerLit(4), IntegerLit(5), IntegerLit(6)]))
 ])"""
         self.assertTrue(TestAST.test(input, expect, 306))
         
@@ -108,18 +108,18 @@ class ASTGenSuite(unittest.TestCase):
     def test13(self):
         input = """a,b,c: array[3,4,5] of integer = {},{{},{}}, {{{},{}},{}};"""
         expect = """Program([
-	VarDecl(a, ArrayType([3, 4, 5], IntegerType), ArrayLit([]))
-	VarDecl(b, ArrayType([3, 4, 5], IntegerType), ArrayLit([ArrayLit([]), ArrayLit([])]))
-	VarDecl(c, ArrayType([3, 4, 5], IntegerType), ArrayLit([ArrayLit([ArrayLit([]), ArrayLit([])]), ArrayLit([])]))
+	VarDecl(a, ArrayType([IntegerLit(3), IntegerLit(4), IntegerLit(5)], IntegerType), ArrayLit([]))
+	VarDecl(b, ArrayType([IntegerLit(3), IntegerLit(4), IntegerLit(5)], IntegerType), ArrayLit([ArrayLit([]), ArrayLit([])]))
+	VarDecl(c, ArrayType([IntegerLit(3), IntegerLit(4), IntegerLit(5)], IntegerType), ArrayLit([ArrayLit([ArrayLit([]), ArrayLit([])]), ArrayLit([])]))
 ])"""
         self.assertTrue(TestAST.test(input, expect, 313))    
   
     def test14(self):
         input = """a,b,c: array[3,4,5] of integer = {1,2,3},{{1,2},{3,4}}, {{{1,22},{33,4}},{77,88}};"""
         expect = """Program([
-	VarDecl(a, ArrayType([3, 4, 5], IntegerType), ArrayLit([IntegerLit(1), IntegerLit(2), IntegerLit(3)]))
-	VarDecl(b, ArrayType([3, 4, 5], IntegerType), ArrayLit([ArrayLit([IntegerLit(1), IntegerLit(2)]), ArrayLit([IntegerLit(3), IntegerLit(4)])]))
-	VarDecl(c, ArrayType([3, 4, 5], IntegerType), ArrayLit([ArrayLit([ArrayLit([IntegerLit(1), IntegerLit(22)]), ArrayLit([IntegerLit(33), IntegerLit(4)])]), ArrayLit([IntegerLit(77), IntegerLit(88)])]))
+	VarDecl(a, ArrayType([IntegerLit(3), IntegerLit(4), IntegerLit(5)], IntegerType), ArrayLit([IntegerLit(1), IntegerLit(2), IntegerLit(3)]))
+	VarDecl(b, ArrayType([IntegerLit(3), IntegerLit(4), IntegerLit(5)], IntegerType), ArrayLit([ArrayLit([IntegerLit(1), IntegerLit(2)]), ArrayLit([IntegerLit(3), IntegerLit(4)])]))
+	VarDecl(c, ArrayType([IntegerLit(3), IntegerLit(4), IntegerLit(5)], IntegerType), ArrayLit([ArrayLit([ArrayLit([IntegerLit(1), IntegerLit(22)]), ArrayLit([IntegerLit(33), IntegerLit(4)])]), ArrayLit([IntegerLit(77), IntegerLit(88)])]))
 ])"""
         self.assertTrue(TestAST.test(input, expect, 314)) 
   

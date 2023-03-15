@@ -125,7 +125,7 @@ EQL : '=' ;
 // Literals
 LITINT : [0-9] | [1-9][0-9_]*[0-9] {self.text = self.text.replace('_','')} ;
 
-LITFLOAT : LITINT Decimal? Exponent? | LITINT? Decimal Exponent? | LITINT? Decimal? Exponent   {self.text = self.text.replace('_','')} ;
+LITFLOAT : LITINT Decimal? Exponent? {self.text = self.text.replace('_','')} | LITINT? Decimal Exponent? {self.text = self.text.replace('_','')} | LITINT? Decimal? Exponent {self.text = self.text.replace('_','')} ;
 
 fragment Decimal : DOT [0-9]* ;
 
@@ -156,9 +156,9 @@ ids : CM ID ids | ;
 
 vartyp : KWINT | KWFLOAT | KWBOO | KWSTR | KWAUTO ;
 
-dimenlist : LITINT dimens | LITINT ;
+dimenlist : expr dimens | LITINT ;
 
-dimens : CM LITINT dimens | ;
+dimens : CM expr dimens | ;
 
 middle : CM ID middle expr CM | CL (KWARR LSB dimenlist RSB KWOF)? vartyp EQL ;
 
@@ -174,7 +174,7 @@ paralist : para paras | ;
 
 paras : CM para paras | ;
 
-para :  KWINHERIT? KWOUT? ID CL vartyp |  ;
+para :  KWINHERIT? KWOUT? ID CL vartyp ;
 
 funcbody : blockstmt ;
 

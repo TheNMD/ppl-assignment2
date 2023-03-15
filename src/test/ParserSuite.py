@@ -263,15 +263,14 @@ relational_expr: function float() inherit main{
         expect="""successful"""
         self.assertTrue(TestParser.test(input, expect, 233))
 
-# TODO Sua lai cho phep expr trong dimension
-#     def test234(self):
-#         input="""new_array: array[200] of float;
-# main: function void(){
-# if (true)
-# 	new_array[20] = new_array[-new_array[2] *20 + 82e-7 -100_712 /10 %20];
-# }"""
-#         expect="""successful"""
-#         self.assertTrue(TestParser.test(input, expect, 234))
+    def test234(self):
+        input="""new_array: array[200] of float;
+main: function void(){
+if (true)
+	new_array[20] = new_array[-new_array[2] *20 + 82e-7 -100_712 /10 %20];
+}"""
+        expect="""successful"""
+        self.assertTrue(TestParser.test(input, expect, 234))
 
 
     def test235(self):
@@ -339,16 +338,15 @@ relational_expr: function float() inherit main{
         expect="""Error on line 1 col 9: ="""
         self.assertTrue(TestParser.test(input, expect, 241))
 
-# TODO Sua lai cho phep expr trong dimension
-#     def test242(self):
-#         input="""main: function void() {
-#     for(i= new_array[29 *821 %1210 -1128], i <= 1, i+1)
-#         for(j = i-1, j!=0, j-1) {
-#             print_integer(j,i);
-#         }
-# }"""
-#         expect="""successful"""
-#         self.assertTrue(TestParser.test(input, expect, 242))
+    def test242(self):
+        input="""main: function void() {
+    for(i= new_array[29 *821 %1210 -1128], i <= 1, i+1)
+        for(j = i-1, j!=0, j-1) {
+            print_integer(j,i);
+        }
+}"""
+        expect="""successful"""
+        self.assertTrue(TestParser.test(input, expect, 242))
 
 
     def test243(self):
@@ -698,14 +696,13 @@ if (true)
         expect="""Error on line 2 col 7: while"""
         self.assertTrue(TestParser.test(input, expect, 276))
 
-# TODO Sua lai cho phep expr trong dimension
-#     def test277(self):
-#         input="""main: function void(){
-# a = a+2;
-# b = a*a + a/a + a%a + a%b + -a + a[b]; 
-# }"""
-#         expect="""successful"""
-#         self.assertTrue(TestParser.test(input, expect, 277))
+    def test277(self):
+        input="""main: function void(){
+a = a+2;
+b = a*a + a/a + a%a + a%b + -a + a[b]; 
+}"""
+        expect="""successful"""
+        self.assertTrue(TestParser.test(input, expect, 277))
 
 
     def test278(self):
