@@ -13,6 +13,8 @@ class ASTGeneration(MT22Visitor):
         if ctx.vardecl(): 
             return self.visit(ctx.vardecl())
         return self.visit(ctx.funcdecl())
+    
+    # Variable declaration
     def visitVardecl(self, ctx: MT22Parser.VardeclContext):
         if ctx.middle():
             idvaluelist = [ctx.ID().getText()] + self.visit(ctx.middle()) + [self.visit(ctx.expr())]
@@ -72,6 +74,16 @@ class ASTGeneration(MT22Visitor):
             if ctx.dimenlist():
                 return [self.visit(ctx.vartyp())] + [self.visit(ctx.dimenlist())]
             return [self.visit(ctx.vartyp())]
+    
+    # Function declaration
+    def visitFuncdelc(self, ctx: MT22Parser.FuncdeclContext):
+        return self.visit(ctx.funcproto()) + self.visit(ctx.funcbody())
+    def visitFuncproto(self, ctx: MT22Parser.FuncprotoContext):
+        return []
+    def visitFuncbody(self, ctx: MT22Parser.FuncbodyContext):
+        return []
+    
+    # Expression
     def visitExprlist(self, ctx: MT22Parser.ExprlistContext):
         if ctx.exprs():
             return [self.visit(ctx.expr())] + self.visit(ctx.exprs())
@@ -98,19 +110,19 @@ class ASTGeneration(MT22Visitor):
         elif ctx.SEQLOP():
             return BinExpr(ctx.SEQLOP(), self.visit(ctx.expr2()[0]), self.visit(ctx.expr2()[1]))
         return self.visit(ctx.expr2()[0])
-    def visitExpr2(self, ctx: MT22Parser.Expr2Context): #TODO
+    def visitExpr2(self, ctx: MT22Parser.Expr2Context):
         if ctx.ANDOP():
             return BinExpr(ctx.ANDOP(), self.visit(ctx.expr2()), self.visit(ctx.expr3())) 
         elif ctx.OROP():
             return BinExpr(ctx.OROP(), self.visit(ctx.expr2()), self.visit(ctx.expr3())) 
         return self.visit(ctx.expr3())
-    def visitExpr3(self, ctx: MT22Parser.Expr3Context): #TODO
+    def visitExpr3(self, ctx: MT22Parser.Expr3Context):
         if ctx.ADDOP():
             return BinExpr(ctx.ADDOP(), self.visit(ctx.expr3()), self.visit(ctx.expr4())) 
         elif ctx.SUBOP():
             return BinExpr(ctx.SUBOP(), self.visit(ctx.expr3()), self.visit(ctx.expr4())) 
         return self.visit(ctx.expr4())
-    def visitExpr4(self, ctx: MT22Parser.Expr4Context): #TODO
+    def visitExpr4(self, ctx: MT22Parser.Expr4Context):
         if ctx.MULOP():
             return BinExpr(ctx.MULOP(), self.visit(ctx.expr4()), self.visit(ctx.expr5())) 
         elif ctx.DIVOP():
@@ -118,11 +130,11 @@ class ASTGeneration(MT22Visitor):
         elif ctx.MODOP():
             return BinExpr(ctx.MODOP(), self.visit(ctx.expr4()), self.visit(ctx.expr5()))  
         return self.visit(ctx.expr5())
-    def visitExpr5(self, ctx: MT22Parser.Expr5Context): #TODO
+    def visitExpr5(self, ctx: MT22Parser.Expr5Context):
         if ctx.EXCOP():
             return UnExpr(ctx.EXCOP(), self.visit(ctx.expr5()))
         return self.visit(ctx.expr6())
-    def visitExpr6(self, ctx: MT22Parser.Expr6Context): #TODO
+    def visitExpr6(self, ctx: MT22Parser.Expr6Context):
         if ctx.SUBOP():
             return UnExpr(ctx.SUBOP(), self.visit(ctx.expr6()))
         return self.visit(ctx.operand())
