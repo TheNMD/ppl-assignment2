@@ -144,6 +144,16 @@ class ASTGenSuite(unittest.TestCase):
 ])"""
         self.assertTrue(TestAST.test(input, expect, 316))
 
+    def test17(self):
+        """Simple program"""
+        input = """main: function void () {
+                if (a == 9) b = 7 ;
+        }"""
+        expect = """Program([
+	FuncDecl(main, VoidType, [], None, BlockStmt([IfStmt(BinExpr(==, Id(a), IntegerLit(9)), AssignStmt(Id(b), IntegerLit(7)))]))
+])"""
+        self.assertTrue(TestAST.test(input, expect, 317))
+
 #     def test15(self):
 #         """More complex program"""
 #         input = """main: function void () {

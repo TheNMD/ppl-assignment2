@@ -124,11 +124,6 @@ class MT22Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MT22Parser#assignstmt.
-    def visitAssignstmt(self, ctx:MT22Parser.AssignstmtContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by MT22Parser#ifstmt.
     def visitIfstmt(self, ctx:MT22Parser.IfstmtContext):
         return self.visitChildren(ctx)
@@ -141,6 +136,11 @@ class MT22Visitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by MT22Parser#unmatchstmt.
     def visitUnmatchstmt(self, ctx:MT22Parser.UnmatchstmtContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MT22Parser#assignstmt.
+    def visitAssignstmt(self, ctx:MT22Parser.AssignstmtContext):
         return self.visitChildren(ctx)
 
 

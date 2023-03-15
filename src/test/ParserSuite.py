@@ -74,7 +74,7 @@ class ParserSuite(unittest.TestCase):
             else randarr : integer = 9 * 44 * 5 + c - d ;
             return 0;
             }"""
-        expect = "successful"
+        expect = "Error on line 4 col 25: :"
         self.assertTrue(TestParser.test(input, expect, 216))
         input = """func1 : function void (c : string, out d : boolean) {
             if(true) printInteger(a) ;

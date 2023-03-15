@@ -182,31 +182,31 @@ blockstmt : LCB bodylist RCB ;
 
 bodylist : body bodylist | ;
 
-body : vardecl | stmt | ifstmt ;
+body : vardecl | stmt | ifstmt | forstmt | whilestmt | blockstmt ;
 
-stmt : assignstmt | forstmt | whilestmt | dowhilestmt | breakstmt | continuestmt | rtnstmt | callstmt | blockstmt ;
+stmt : (assignstmt | dowhilestmt | breakstmt | continuestmt | rtnstmt | callstmt) SM ;
 
 ifstmt : matchstmt | unmatchstmt ;
 
-matchstmt : KWIF LB expr RB matchstmt KWELSE matchstmt | (vardecl | stmt) ;
+matchstmt : KWIF LB expr RB matchstmt KWELSE matchstmt | (stmt | forstmt | whilestmt | blockstmt) ;
 
 unmatchstmt : KWIF LB expr RB ifstmt | KWIF LB expr RB matchstmt KWELSE unmatchstmt ;
 
-assignstmt : (ID | ID idxop)  EQL expr SM ;
+assignstmt : ID idxop? EQL expr ;
 
-forstmt : KWFOR LB ID EQL expr CM expr CM expr RB (vardecl | stmt | ifstmt) ;
+forstmt : KWFOR LB assignstmt CM expr CM expr RB (stmt | ifstmt | forstmt | whilestmt | blockstmt) ;
 
-whilestmt : KWWHILE LB expr RB (vardecl | stmt | ifstmt) ;
+whilestmt : KWWHILE LB expr RB (stmt+ | ifstmt | forstmt | whilestmt | blockstmt) ;
 
-dowhilestmt : KWDO blockstmt KWWHILE LB expr RB SM ;
+dowhilestmt : KWDO blockstmt KWWHILE LB expr RB ;
 
-breakstmt : KWBRK SM ;
+breakstmt : KWBRK ;
 
-continuestmt : KWCONT SM ;
+continuestmt : KWCONT ;
 
-rtnstmt : KWRTN (expr)? SM ;
+rtnstmt : KWRTN (expr)? ;
 
-callstmt : (funccall | specialfunc) SM ;
+callstmt : (funccall | specialfunc) ;
 
 specialfunc : ('readInteger' | 'readFloat' | 'readBoolean' | 'readString' | 'preventDefault') LB RB 
 			| ('printInteger' | 'writeFloat' | 'printBoolean' | 'printString' | 'super') LB exprlist RB ;

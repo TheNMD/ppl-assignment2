@@ -143,31 +143,66 @@ class ASTGeneration(MT22Visitor):
             return self.visit(ctx.vardecl())
         elif ctx.stmt():
             return self.visit(ctx.stmt())
-        return self.visit(ctx.ifstmt())
-    def visitStmt(self, ctx: MT22Parser.StmtContext): #TODO
-        if ctx.assignstmt():
-            return []
+        elif ctx.ifstmt():
+            self.visit(ctx.ifstmt())
         elif ctx.forstmt():
-            return []
+            self.visit(ctx.forstmt())
         elif ctx.whilestmt():
-            return []
+            self.visit(ctx.whilestmt())
+        self.visit(ctx.blockstmt())
+    
+    # Statements
+    def visitStmt(self, ctx: MT22Parser.StmtContext):
+        if ctx.assignstmt():
+            return self.visit(ctx.assignstmt())
         elif ctx.dowhilestmt():
-            return []
+            return self.visit(ctx.dowhilestmt())
         elif ctx.breakstmt():
-            return []
+            return self.visit(ctx.breakstmt())
         elif ctx.continuestmt():
-            return []
+            return self.visit(ctx.continuestmt())
         elif ctx.rtnstmt():
-            return []
-        elif ctx.callstmt():
-            return []
-        return []
-    def visitIflist(self, ctx: MT22Parser.IfstmtContext):
+            return self.visit(ctx.rtnstmt())
+        return self.visit(ctx.callstmt())
+    def visitIfstmt(self, ctx: MT22Parser.IfstmtContext):
         if ctx.matchstmt():
             return self.visit(ctx.matchstmt())
         return self.visit(ctx.unmatchstmt())
+    def visitMatchstmt(self, ctx: MT22Parser.MatchstmtContext):
+        if ctx.KWIF():
+            cond = self.visit(ctx.expr())
+            tstmt = self.visit(ctx.matchstmt()[0])
+            fstmt = self.visit(ctx.matchstmt()[1])
+            return [IfStmt(cond, tstmt, fstmt)]
+        if ctx.stmt():
+            return self.visit(ctx.stmt())
+        elif ctx.forstmt():
+            return self.visit(ctx.forstmt())
+        elif ctx.whilestmt():
+            return self.visit(ctx.whilestmt())
+        return self.visit(ctx.blockstmt())      
+    def visitUnmatchstmt(self, ctx: MT22Parser.UnmatchstmtContext):
+        cond = self.visit(ctx.expr())
+        if ctx.KWELSE():
+            tstmt = self.visit(ctx.matchstmt())
+            tstmt = self.visit(ctx.unmatchstmt())
+            return [IfStmt(cond, tstmt, fstmt)]
+        tstmt = self.visit(ctx.ifstmt())
+        fstmt = None     
+        return [IfStmt(cond, tstmt, fstmt)]
+    def visitForstmt(self, ctx: MT22Parser.ForstmtContext): #TODO
+        return []
+    def visitWhilestmt(self, ctx: MT22Parser.WhilestmtContext): #TODO
+        return []
+    def visitAssignstmt(self, ctx: MT22Parser.AssignstmtContext):
+        if ctx.idxop(): 
+            lhs = ArrayCell(ctx.ID().getText(), self.visit(ctx.idxop()))
+        else:
+            lhs = Id(ctx.ID().getText())
+        rhs = self.visit(ctx.expr())
+        return AssignStmt(lhs, rhs)
     
-    # Expression
+    # Expressions
     def visitExprlist(self, ctx: MT22Parser.ExprlistContext):
         if ctx.exprs():
             return [self.visit(ctx.expr())] + self.visit(ctx.exprs())
