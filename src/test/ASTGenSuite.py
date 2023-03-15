@@ -117,22 +117,34 @@ class ASTGenSuite(unittest.TestCase):
     def test14(self):
         input = """a,b,c: array[3,4,5] of integer = {1,2,3},{{1,2},{3,4}}, {{{1,22},{33,4}},{77,88}};"""
         expect = """Program([
-	VarDecl(a, ArrayType([3, 4, 5], IntegerType), ArrayLit([]))
-	VarDecl(b, ArrayType([3, 4, 5], IntegerType), ArrayLit([ArrayLit([]), ArrayLit([])]))
-	VarDecl(c, ArrayType([3, 4, 5], IntegerType), ArrayLit([ArrayLit([ArrayLit([]), ArrayLit([])]), ArrayLit([])]))
+	VarDecl(a, ArrayType([3, 4, 5], IntegerType), ArrayLit([IntegerLit(1), IntegerLit(2), IntegerLit(3)]))
+	VarDecl(b, ArrayType([3, 4, 5], IntegerType), ArrayLit([ArrayLit([IntegerLit(1), IntegerLit(2)]), ArrayLit([IntegerLit(3), IntegerLit(4)])]))
+	VarDecl(c, ArrayType([3, 4, 5], IntegerType), ArrayLit([ArrayLit([ArrayLit([IntegerLit(1), IntegerLit(22)]), ArrayLit([IntegerLit(33), IntegerLit(4)])]), ArrayLit([IntegerLit(77), IntegerLit(88)])]))
 ])"""
         self.assertTrue(TestAST.test(input, expect, 314)) 
   
-#     def test_simple_program(self):
-#         """Simple program"""
-#         input = """main: function void () {
-#         }"""
-#         expect = """Program([
-# 	FuncDecl(main, VoidType, [], None, BlockStmt([]))
-# ])"""
-#         self.assertTrue(TestAST.test(input, expect, 305))
+    def test15(self):
+        """Simple program"""
+        input = """main: function void () {
+                
+        }"""
+        expect = """Program([
+	FuncDecl(main, VoidType, [], None, BlockStmt([]))
+])"""
+        self.assertTrue(TestAST.test(input, expect, 315))
+        
+    def test16(self):
+        """Simple program"""
+        input = """main: function void (inherit a : integer, out b : float, inherit out c : boolean) {
+                int1: integer = a + b / c;
+                int2: integer = 1 + 3 - 8 ;
+        }"""
+        expect = """Program([
+	FuncDecl(main, VoidType, [InheritParam(a, IntegerType), OutParam(b, FloatType), InheritOutParam(c, BooleanType)], None, BlockStmt([VarDecl(int1, IntegerType, BinExpr(+, Id(a), BinExpr(/, Id(b), Id(c)))), VarDecl(int2, IntegerType, BinExpr(-, BinExpr(+, IntegerLit(1), IntegerLit(3)), IntegerLit(8)))]))
+])"""
+        self.assertTrue(TestAST.test(input, expect, 316))
 
-#     def test_more_complex_program(self):
+#     def test15(self):
 #         """More complex program"""
 #         input = """main: function void () {
 #             printInteger(4);
@@ -140,5 +152,5 @@ class ASTGenSuite(unittest.TestCase):
 #         expect = """Program([
 # 	FuncDecl(main, VoidType, [], None, BlockStmt([]))
 # ])"""
-#         self.assertTrue(TestAST.test(input, expect, 306))
+#         self.assertTrue(TestAST.test(input, expect, 316))
 

@@ -166,6 +166,8 @@ funcdecl : funcproto funcbody ;
 
 funcproto : ID CL KWFUNC functyp paradecl (KWINHERIT ID)? ;
 
+functyp :  KWINT | KWFLOAT | KWBOO | KWSTR | KWAUTO | KWVOID ;
+
 paradecl : LB paralist RB ;
 
 paralist : para paras | ;
@@ -174,9 +176,9 @@ paras : CM para paras | ;
 
 para :  KWINHERIT? KWOUT? ID CL vartyp ;
 
-functyp :  KWINT | KWFLOAT | KWBOO | KWSTR | KWAUTO | KWVOID ;
+funcbody : blockstmt ;
 
-funcbody : LCB bodylist RCB ;
+blockstmt : LCB bodylist RCB ;
 
 bodylist : body bodylist | ;
 
@@ -184,13 +186,13 @@ body : vardecl | stmt | ifstmt ;
 
 stmt : assignstmt | forstmt | whilestmt | dowhilestmt | breakstmt | continuestmt | rtnstmt | callstmt | blockstmt ;
 
-assignstmt : (ID | ID idxop)  EQL expr SM ;
-
 ifstmt : matchstmt | unmatchstmt ;
 
 matchstmt : KWIF LB expr RB matchstmt KWELSE matchstmt | (vardecl | stmt) ;
 
 unmatchstmt : KWIF LB expr RB ifstmt | KWIF LB expr RB matchstmt KWELSE unmatchstmt ;
+
+assignstmt : (ID | ID idxop)  EQL expr SM ;
 
 forstmt : KWFOR LB ID EQL expr CM expr CM expr RB (vardecl | stmt | ifstmt) ;
 
@@ -206,7 +208,8 @@ rtnstmt : KWRTN (expr)? SM ;
 
 callstmt : (funccall | specialfunc) SM ;
 
-blockstmt : LCB bodylist RCB ;
+specialfunc : ('readInteger' | 'readFloat' | 'readBoolean' | 'readString' | 'preventDefault') LB RB 
+			| ('printInteger' | 'writeFloat' | 'printBoolean' | 'printString' | 'super') LB exprlist RB ;
 
 exprlist : expr exprs | expr ;
 
@@ -237,9 +240,6 @@ funccall : ID LB exprlist? RB ;
 subexpr : LB expr RB ;
 
 litarr : LCB exprlist? RCB ;
-
-specialfunc : ('readInteger' | 'readFloat' | 'readBoolean' | 'readString' | 'preventDefault') LB RB 
-			| ('printInteger' | 'writeFloat' | 'printBoolean' | 'printString' | 'super') LB exprlist RB ;
 
 // ERROR TOKENS
 ILLEGAL_ESCAPE: '"' Char* ('\\' ~[bfrnt'\\"]) {self.text = self.text[1:]; raise IllegalEscape(self.text)};

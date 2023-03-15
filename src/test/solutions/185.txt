@@ -1,1 +1,0 @@
-if,(,6,%,6,==,1,),int1,:,integer,;,else,bool1,:,boolean,;,<EOF>

@@ -58,7 +58,9 @@ class ASTGeneration(MT22Visitor):
             return FloatType()
         elif ctx.KWBOO():
             return BooleanType()
-        return StringType()
+        elif ctx.KWSTR():
+            return StringType()
+        return AutoType()
     def visitDimenlist(self, ctx: MT22Parser.DimenlistContext):
         if ctx.dimens():
             return [ctx.LITINT().getText()] + self.visit(ctx.dimens())
@@ -76,12 +78,94 @@ class ASTGeneration(MT22Visitor):
             return [self.visit(ctx.vartyp())]
     
     # Function declaration
-    def visitFuncdelc(self, ctx: MT22Parser.FuncdeclContext):
-        return self.visit(ctx.funcproto()) + self.visit(ctx.funcbody())
+    def visitFuncdecl(self, ctx: MT22Parser.FuncdeclContext):
+        funcproto = self.visit(ctx.funcproto())
+        name = funcproto[0]
+        return_type = funcproto[1]
+        params = funcproto[2]
+        inherit = funcproto[3]
+        body = self.visit(ctx.funcbody())
+        return [FuncDecl(name, return_type, params, inherit, body)]
     def visitFuncproto(self, ctx: MT22Parser.FuncprotoContext):
+        name = ctx.ID()[0].getText()
+        type = self.visit(ctx.functyp())
+        para = self.visit(ctx.paradecl())
+        inherit = None
+        if ctx.KWINHERIT():
+            inherit = ctx.ID()[1].getText()
+        return [name, type, para, inherit]
+    def visitFunctyp(self, ctx: MT22Parser.FunctypContext):
+        if ctx.KWINT():
+            return IntegerType()
+        elif ctx.KWFLOAT():
+            return FloatType()
+        elif ctx.KWBOO():
+            return BooleanType()
+        elif ctx.KWSTR():
+            return StringType()
+        elif ctx.KWAUTO():
+            return AutoType()
+        return VoidType()
+    def visitParadecl(self, ctx: MT22Parser.ParadeclContext):
+        return self.visit(ctx.paralist())
+    def visitParalist(self, ctx: MT22Parser.ParalistContext):
+        if ctx.para():
+            return self.visit(ctx.para()) + self.visit(ctx.paras())
+        return []
+    def visitParas(self, ctx: MT22Parser.ParasContext):
+        if ctx.para():
+            return self.visit(ctx.para()) + self.visit(ctx.paras())
+        return []
+    def visitPara(self, ctx: MT22Parser.ParaContext):
+        name = ctx.ID().getText()
+        typ = self.visit(ctx.vartyp())
+        inherit = False
+        if ctx.KWINHERIT():
+            inherit = True
+        out = False
+        if ctx.KWOUT():
+            out = True
+        return [ParamDecl(name, typ, out, inherit)]
+    def visitParalist(self, ctx: MT22Parser.ParalistContext):
+        if ctx.para():
+            return self.visit(ctx.para()) + self.visit(ctx.paras())
         return []
     def visitFuncbody(self, ctx: MT22Parser.FuncbodyContext):
+        return self.visit(ctx.blockstmt())
+    def visitBlockstmt(self, ctx: MT22Parser.BlockstmtContext):
+        return BlockStmt(self.visit(ctx.bodylist()))
+    def visitBodylist(self, ctx: MT22Parser.BodylistContext):
+        if ctx.body():
+            return self.visit(ctx.body()) + self.visit(ctx.bodylist())
         return []
+    def visitBody(self, ctx: MT22Parser.BodyContext):
+        if ctx.vardecl():
+            return self.visit(ctx.vardecl())
+        elif ctx.stmt():
+            return self.visit(ctx.stmt())
+        return self.visit(ctx.ifstmt())
+    def visitStmt(self, ctx: MT22Parser.StmtContext): #TODO
+        if ctx.assignstmt():
+            return []
+        elif ctx.forstmt():
+            return []
+        elif ctx.whilestmt():
+            return []
+        elif ctx.dowhilestmt():
+            return []
+        elif ctx.breakstmt():
+            return []
+        elif ctx.continuestmt():
+            return []
+        elif ctx.rtnstmt():
+            return []
+        elif ctx.callstmt():
+            return []
+        return []
+    def visitIflist(self, ctx: MT22Parser.IfstmtContext):
+        if ctx.matchstmt():
+            return self.visit(ctx.matchstmt())
+        return self.visit(ctx.unmatchstmt())
     
     # Expression
     def visitExprlist(self, ctx: MT22Parser.ExprlistContext):

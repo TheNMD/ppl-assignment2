@@ -74,6 +74,11 @@ class MT22Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by MT22Parser#functyp.
+    def visitFunctyp(self, ctx:MT22Parser.FunctypContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by MT22Parser#paradecl.
     def visitParadecl(self, ctx:MT22Parser.ParadeclContext):
         return self.visitChildren(ctx)
@@ -94,13 +99,13 @@ class MT22Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MT22Parser#functyp.
-    def visitFunctyp(self, ctx:MT22Parser.FunctypContext):
+    # Visit a parse tree produced by MT22Parser#funcbody.
+    def visitFuncbody(self, ctx:MT22Parser.FuncbodyContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MT22Parser#funcbody.
-    def visitFuncbody(self, ctx:MT22Parser.FuncbodyContext):
+    # Visit a parse tree produced by MT22Parser#blockstmt.
+    def visitBlockstmt(self, ctx:MT22Parser.BlockstmtContext):
         return self.visitChildren(ctx)
 
 
@@ -174,8 +179,8 @@ class MT22Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MT22Parser#blockstmt.
-    def visitBlockstmt(self, ctx:MT22Parser.BlockstmtContext):
+    # Visit a parse tree produced by MT22Parser#specialfunc.
+    def visitSpecialfunc(self, ctx:MT22Parser.SpecialfuncContext):
         return self.visitChildren(ctx)
 
 
@@ -246,11 +251,6 @@ class MT22Visitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by MT22Parser#litarr.
     def visitLitarr(self, ctx:MT22Parser.LitarrContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MT22Parser#specialfunc.
-    def visitSpecialfunc(self, ctx:MT22Parser.SpecialfuncContext):
         return self.visitChildren(ctx)
 
 

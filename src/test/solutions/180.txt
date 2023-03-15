@@ -1,1 +1,0 @@
-int1,:,integer,=,3323,;,func1,:,function,boolean,(,a,:,boolean,),{,i,[,22,,,3,],=,7,/,6,;,},<EOF>
