@@ -63,11 +63,11 @@ class ASTGeneration(MT22Visitor):
         return AutoType()
     def visitDimenlist(self, ctx: MT22Parser.DimenlistContext):
         if ctx.dimens():
-            return [self.visit(ctx.expr())] + self.visit(ctx.dimens())
-        return [self.visit(ctx.expr())]
+            return [ctx.LITINT().getText()] + self.visit(ctx.dimens())
+        return [ctx.LITINT().getText()]
     def visitDimens(self, ctx: MT22Parser.DimensContext):
         if ctx.dimens():
-            return [self.visit(ctx.expr())] + self.visit(ctx.dimens())
+            return [ctx.LITINT().getText()] + self.visit(ctx.dimens())
         return []
     def visitMiddle(self, ctx: MT22Parser.MiddleContext):
         if ctx.middle():
@@ -81,11 +81,14 @@ class ASTGeneration(MT22Visitor):
     def visitFuncdecl(self, ctx: MT22Parser.FuncdeclContext):
         funcproto = self.visit(ctx.funcproto())
         name = funcproto[0]
-        return_type = funcproto[1]
+        return_typ = funcproto[1]
         params = funcproto[2]
         inherit = funcproto[3]
+        dimenlist = funcproto[4]
         body = self.visit(ctx.funcbody())
-        return [FuncDecl(name, return_type, params, inherit, body)]
+        if dimenlist:
+            return [FuncDecl(name, ArrayType(dimenlist, return_typ), params, inherit, body)]
+        return [FuncDecl(name, return_typ, params, inherit, body)]
     def visitFuncproto(self, ctx: MT22Parser.FuncprotoContext):
         name = ctx.ID()[0].getText()
         type = self.visit(ctx.functyp())
@@ -93,7 +96,10 @@ class ASTGeneration(MT22Visitor):
         inherit = None
         if ctx.KWINHERIT():
             inherit = ctx.ID()[1].getText()
-        return [name, type, para, inherit]
+        dimenlist = None    
+        if ctx.dimenlist():
+            dimenlist = self.visit(ctx.dimenlist())
+        return [name, type, para, inherit, dimenlist]
     def visitFunctyp(self, ctx: MT22Parser.FunctypContext):
         if ctx.KWINT():
             return IntegerType()
@@ -118,14 +124,17 @@ class ASTGeneration(MT22Visitor):
         return []
     def visitPara(self, ctx: MT22Parser.ParaContext):
         name = ctx.ID().getText()
-        typ = self.visit(ctx.vartyp())
+        vartyp = self.visit(ctx.vartyp())
         inherit = False
         if ctx.KWINHERIT():
             inherit = True
         out = False
         if ctx.KWOUT():
             out = True
-        return [ParamDecl(name, typ, out, inherit)]
+        if ctx.dimenlist():
+            dimenlist = self.visit(ctx.dimenlist())
+            return [ParamDecl(name, ArrayType(dimenlist, vartyp), out, inherit)]
+        return [ParamDecl(name, vartyp, out, inherit)]
     def visitParalist(self, ctx: MT22Parser.ParalistContext):
         if ctx.para():
             return self.visit(ctx.para()) + self.visit(ctx.paras())
@@ -318,7 +327,15 @@ class ASTGeneration(MT22Visitor):
             return BooleanLit(True)
         return BooleanLit(False)
     def visitIdxop(self, ctx: MT22Parser.IdxopContext):
-        return self.visit(ctx.dimenlist())
+        return self.visit(ctx.celllist())
+    def visitCelllist(self, ctx: MT22Parser.CelllistContext):
+        if ctx.cells():
+            return [self.visit(ctx.expr())] + self.visit(ctx.cells())
+        return [self.visit(ctx.expr())]
+    def visitCells(self, ctx: MT22Parser.CellsContext):
+        if ctx.cells():
+            return [self.visit(ctx.expr())] + self.visit(ctx.cells())
+        return []
     def visitFunccall(self, ctx: MT22Parser.FunccallContext):
         if ctx.exprlist():
             return FuncCall(ctx.ID().getText(), self.visit(ctx.exprlist()))

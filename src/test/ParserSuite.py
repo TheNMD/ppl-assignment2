@@ -121,78 +121,25 @@ my_array_: array[3] of string = {"1,2,3", mnpq, "xyz"};"""
         expect="""Error on line 1 col 11: function"""
         self.assertTrue(TestParser.test(input, expect, 218))
 
-# TODO para la idlist va type la array
-#     def test219(self):
-#         input="""main: function void (a,b,c:integer,d,e: array[3] of integer) {
-# 	break;
-# }"""
-#         expect="""successful"""
-#         self.assertTrue(TestParser.test(input, expect, 219))
+    def test225(self):
+        input="""main: function void (argv: array[3] of string, out args: integer ) {
+	a: integer = 5;
+	c: auto = 282;
+	if (c<=100) a = a+100;
+	else a= a - 100;
+}"""
+        expect="""successful"""
+        self.assertTrue(TestParser.test(input, expect, 225))
 
-# TODO type la array
-#     def test220(self):
-#         input="""main: function integer (out a:auto,inherit d,e: array[3] of integer, inherit out v: string) {
-# 	break;
-# }"""
-#         expect="""successful"""
-#         self.assertTrue(TestParser.test(input, expect, 220))
-
-# TODO para la idlist va type la array
-#     def test221(self):
-#         input="""main: function void (a,b,c:integer,d,e: array[3] of integer) inherit vice {
-# 	break;
-# 	foo(a,b,c);
-# 	continues;
-# }"""
-#         expect="""Error on line 4 col 10: ;"""
-#         self.assertTrue(TestParser.test(input, expect, 221))
-
-# TODO para la idlist va type la array
-#     def test222(self):
-#         input="""main: function array[5,2] of string (a,b,c:integer,d,e: array[3] of integer) {
-# 	return goo(4,5,foo(2,3));
-# }"""
-#         expect="""successful"""
-#         self.assertTrue(TestParser.test(input, expect, 222))
-
-# TODO function la array, para la idlist va type la array
-#     def test223(self):
-#         input="""main: function array[5,2] of string (a,b,c:integer, inherit d,e: array[3] of integer) {
-# 	x,y : float = 9e10, 2e5;
-# 	if (x!=2) break;
-# }"""
-#         expect="""successful"""
-#         self.assertTrue(TestParser.test(input, expect, 223))
-
-# TODO function la array, para la idlist va type la array
-#     def test224(self):
-#         input="""main: function array[5,2] of string (a,b) {
-# 	return goo(4,5,foo(2,3));
-# }"""
-#         expect="""Error on line 1 col 40: )"""
-#         self.assertTrue(TestParser.test(input, expect, 224))
-
-# TODO type la array
-#     def test225(self):
-#         input="""main: function void (argv: array[3] of string, out args: integer ) {
-# 	a: integer = 5;
-# 	c: auto = 282;
-# 	if (c<=100) a = a+100;
-# 	else a= a - 100;
-# }"""
-#         expect="""successful"""
-#         self.assertTrue(TestParser.test(input, expect, 225))
-
-# TODO type la array
-#     def test226(self):
-#         input="""main: function void (argv: array[3] of string, out args: integer ) {
-# 	break;
-# 	mul_func: function integer (a,b:integer){
-# 		return a*b;
-# 	}
-# }"""
-#         expect="""Error on line 3 col 11: function"""
-#         self.assertTrue(TestParser.test(input, expect, 226))
+    def test226(self):
+        input="""main: function void (argv: array[3] of string, out args: integer ) {
+	break;
+	mul_func: function integer (a,b:integer){
+		return a*b;
+	}
+}"""
+        expect="""Error on line 3 col 11: function"""
+        self.assertTrue(TestParser.test(input, expect, 226))
 
 
     def test227(self):
@@ -248,14 +195,13 @@ relational_expr: function float() inherit main{
         expect="""successful"""
         self.assertTrue(TestParser.test(input, expect, 231))
 
-# TODO declare ID la function
-#     def test232(self):
-#         input="""index_expr: function float() inherit main{
-# 	my_array: array[100] of float;
-# 	if (x != 2) new_ele = my_array[2+5,92,17];
-# }"""
-#         expect="""successful"""
-#         self.assertTrue(TestParser.test(input, expect, 232))
+    def test232(self):
+        input="""index_expr: function float() inherit main{
+	my_array: array[100] of float;
+	if (x != 2) new_ele = my_array[2+5,92,17];
+}"""
+        expect="""successful"""
+        self.assertTrue(TestParser.test(input, expect, 232))
 
 
     def test233(self):
@@ -279,17 +225,6 @@ if (true)
 }"""
         expect="""Error on line 1 col 10: main"""
         self.assertTrue(TestParser.test(input, expect, 235))
-
-# TODO para la idlist
-#     def test236(self):
-#         input="""find_gcd: function integer (a,b: integer) {
-# 	for (i=50,i<20, i+1){
-# 		if (i%2==0)	break;
-# 	}
-# }"""
-#         expect="""successful"""
-#         self.assertTrue(TestParser.test(input, expect, 236))
-
 
     def test237(self):
         input="""test_function: function void (){
@@ -320,17 +255,16 @@ if (true)
         expect="""Error on line 2 col 5: )"""
         self.assertTrue(TestParser.test(input, expect, 239))
 
-# TODO declare ID la function
-#     def test240(self):
-#         input="""test_syntax: function array[182_729] of string (string_list: array[10] of string) {
-# 	i: integer = 0;
-# 	while (true){
-# 		a = a::string_list[i];
-# 		i = i + 1;
-# 	}
-# }"""
-#         expect="""successful"""
-#         self.assertTrue(TestParser.test(input, expect, 240))
+    def test240(self):
+        input="""test_syntax: function array[182_729] of string (string_list: array[10] of string) {
+	i: integer = 0;
+	while (true){
+		a = a::string_list[i];
+		i = i + 1;
+	}
+}"""
+        expect="""successful"""
+        self.assertTrue(TestParser.test(input, expect, 240))
 
 
     def test241(self):
@@ -374,22 +308,6 @@ if (true)
         expect="""Error on line 4 col 0: }"""
         self.assertTrue(TestParser.test(input, expect, 245))
 
-# TODO declare ID la function
-#     def test246(self):
-#         input="""nested_if_func: function boolean (a,b,c,d,e,f: boolean){
-# 	if (a){
-# 		if (b)
-# 		{
-# 			if (c)
-# 				break;
-# 		}
-# 	}
-# 	else print("nothing happenned");
-# }"""
-#         expect="""successful"""
-#         self.assertTrue(TestParser.test(input, expect, 246))
-
-
     def test247(self):
         input="""fibonacci_func: function void (n: integer){
 	i,a,b: integer = 1,0,1,;
@@ -432,58 +350,12 @@ if (true)
         expect="""Error on line 10 col 5: <EOF>"""
         self.assertTrue(TestParser.test(input, expect, 249))
 
-# TODO declare ID la function
-#     def test250(self):
-#         input="""array_type_func: function array[3] of integer(){
-#     return {1,2,5};
-# }"""
-#         expect="""successful"""
-#         self.assertTrue(TestParser.test(input, expect, 250))
-
-# TODO declare ID la function
-#     def test251(self):
-#         input="""random_expr: function void(float: a,b,c,d) {
-#     a: auto = "string"::a&&c+2*3==b-2*!-b[1,2,3]||d;
-# }"""
-#         expect="""Error on line 1 col 27: float"""
-#         self.assertTrue(TestParser.test(input, expect, 251))
-
-# TODO declare ID la function
-#     def test252(self):
-#         input="""compare_concat_string: function boolean(str1,str2: string)){
-# 	if (true)
-# 		return str1::str2 == str2::str1;
-# }"""
-#         expect="""Error on line 1 col 58: )"""
-#         self.assertTrue(TestParser.test(input, expect, 252))
-
-# TODO declare ID la function
-#     def test253(self):
-#         input="""exp_call_to_death: function auto (){
-# 	while (true)
-# 		print(func1(func2(func3(func4(func5(func6(param)))))));
-# }"""
-#         expect="""successful"""
-#         self.assertTrue(TestParser.test(input, expect, 253))
-
-# TODO declare ID la function
-#     def test254(self):
-#         input="""test_expr: function float ()
-# 	if (true) print(a+b+c+2.02);
-# }"""
-#         expect="""Error on line 2 col 1: if"""
-#         self.assertTrue(TestParser.test(input, expect, 254))
-
-# TODO para la idlist
-#     def test255(self):
-#         input="""main: function void(var1,var2: integer) {
-#     do {
-# 		var1 = var1 - 1;
-# 	}
-#     while (a+b != 0 && a%b != 0)
-# }"""
-#         expect="""Error on line 5 col 27: !="""
-#         self.assertTrue(TestParser.test(input, expect, 255))
+    def test250(self):
+        input="""array_type_func: function array[3] of integer(){
+    return {1,2,5};
+}"""
+        expect="""successful"""
+        self.assertTrue(TestParser.test(input, expect, 250))
 
 
     def test256(self):
@@ -505,68 +377,46 @@ if (true)
         expect="""successful"""
         self.assertTrue(TestParser.test(input, expect, 257))
 
-#TODO Sai tu lexer chu "prinf"
-# def test258(self):
-#     input="""main function void() { prinf("Degree of freedom is"); prinf(degreeOfFreedom); prinf("\n"); p: float = 0.328;"""
-#     expect=""""""
-#     self.assertTrue(TestParser.test(input, expect, 258))
+    def test259(self):
+        input="""main: function void (argv: array[3] of string, out args: integer ) {
+	a: integer = 20;
+	_abc_xyz: void = 1280.128e2;
+	if (_abc_xyz<=100) a = a+100;
+	else a= a - 100;
+}"""
+        expect="""Error on line 3 col 11: void"""
+        self.assertTrue(TestParser.test(input, expect, 259))
 
-# TODO type la array
-#     def test259(self):
-#         input="""main: function void (argv: array[3] of string, out args: integer ) {
-# 	a: integer = 20;
-# 	_abc_xyz: void = 1280.128e2;
-# 	if (_abc_xyz<=100) a = a+100;
-# 	else a= a - 100;
-# }"""
-#         expect="""Error on line 3 col 11: void"""
-#         self.assertTrue(TestParser.test(input, expect, 259))
+    def test260(self):
+        input="""main: function void (argv: array[3] of string, out args: integer ) {
+	a: integer = 20;
+	_abc_xyz: auto = 1280.128e2;
+	if (_abc_xyz<=100) a = a+100;
+	else a= a - 100;
+}"""
+        expect="""successful"""
+        self.assertTrue(TestParser.test(input, expect, 260))
 
-# TODO type la array
-#     def test260(self):
-#         input="""main: function void (argv: array[3] of string, out args: integer ) {
-# 	a: integer = 20;
-# 	_abc_xyz: auto = 1280.128e2;
-# 	if (_abc_xyz<=100) a = a+100;
-# 	else a= a - 100;
-# }"""
-#         expect="""successful"""
-#         self.assertTrue(TestParser.test(input, expect, 260))
+    def test261(self):
+        input="""main: function void (argv: array[3] of string, out args: integer ) {
+	a: integer = 20
+	_abc_xyz: auto = 1280.128e2;
+	if (_abc_xyz<=100) a = a+100;
+	else a= a - 100;
+}"""
+        expect="""Error on line 3 col 1: _abc_xyz"""
+        self.assertTrue(TestParser.test(input, expect, 261))
 
-# TODO type la array
-#     def test261(self):
-#         input="""main: function void (argv: array[3] of string, out args: integer ) {
-# 	a: integer = 20
-# 	_abc_xyz: auto = 1280.128e2;
-# 	if (_abc_xyz<=100) a = a+100;
-# 	else a= a - 100;
-# }"""
-#         expect="""Error on line 3 col 1: _abc_xyz"""
-#         self.assertTrue(TestParser.test(input, expect, 261))
-
-# TODO Sai tu lexer "print"
-#     def test262(self):
-#         input="""nested_cond_func: function boolean (){
-# 	if (a>=c){
-# 		if (a>=b)
-# 			print("TRUE");
-# 	}
-# 	else print("FALSE")
-# }"""
-#         expect="""Error on line 6 col 1: else"""
-#         self.assertTrue(TestParser.test(input, expect, 262))
-
-# TODO type la array
-#     def test263(self):
-#         input="""
-# main: function void (argv: array[100] of string, args: integer){
-# 	if (args == 0) break;
-# 	else {
-# 		expr_val = a * b + c - d /e + g*123%h;
-# 	}
-# }"""
-#         expect="""successful"""
-#         self.assertTrue(TestParser.test(input, expect, 263))
+    def test263(self):
+        input="""
+main: function void (argv: array[100] of string, args: integer){
+	if (args == 0) break;
+	else {
+		expr_val = a * b + c - d /e + g*123%h;
+	}
+}"""
+        expect="""successful"""
+        self.assertTrue(TestParser.test(input, expect, 263))
 
 
     def test264(self):
@@ -582,20 +432,6 @@ if (true)
         input="""main: function void()"""
         expect="""Error on line 1 col 21: <EOF>"""
         self.assertTrue(TestParser.test(input, expect, 265))
-
-# TODO Sai tu lexer "prinf"
-#     def test266(self):
-#         input="""degreeOfFreedom: auto = 1024;
-# batteryLevel: integer = 100;
-# main: function void(){
-# 	prinf("Degree of freedom is");
-# 	prinf(degreeOfFreedom);
-# 	prinf("\n");
-# 	p,q,r,s: float = 0.328;
-# 	i: int = 0.0;
-# }"""
-#         expect=""""""
-#         self.assertTrue(TestParser.test(input, expect, 266))
 
 
     def test267(self):
@@ -637,15 +473,6 @@ if (true)
         expect="""Error on line 4 col 14: -"""
         self.assertTrue(TestParser.test(input, expect, 270))
 
-# TODO para la idlist
-#     def test271(self):
-#         input="""index_expr: function float(a,b,c:float,) {
-# 	my_array: array[100] of float;
-# 	if (x != 2) new_ele = my_array[2+5,92,17];
-# }"""
-#         expect="""Error on line 1 col 39: )"""
-#         self.assertTrue(TestParser.test(input, expect, 271))
-
 
     def test272(self):
         input="""new_array: array[200] of float;
@@ -655,18 +482,6 @@ if (true)
 }"""
         expect="""Error on line 2 col 14: ("""
         self.assertTrue(TestParser.test(input, expect, 272))
-
-# TODO para la idlist
-#     def test273(self):
-#         input="""main: function void (argv,argv2: integer, out args: integer ) {
-# 	a: integer = 20;
-# 	_abc_xyz: auto = 1280.128e2;
-# 	if (_abc_xyz<=100) a = a+100;
-# 	else a= a - 100;
-# }"""
-#         expect="""successful"""
-#         self.assertTrue(TestParser.test(input, expect, 273))
-
 
     def test274(self):
         input="""nested_cond_func: function boolean (){
@@ -725,14 +540,6 @@ b = a*a + a/a + a%a + a%b + -a + a[b];
         expect="""successful"""
         self.assertTrue(TestParser.test(input, expect, 279))
 
-# TODO para la idlist
-#     def test280(self):
-#         input="""main: function void(var1,var2: boolean) {
-#     var1: boolean = !!!var2;
-# }"""
-#         expect="""successful"""
-#         self.assertTrue(TestParser.test(input, expect, 280))
-
 
     def test281(self):
         input="""main: function void() {
@@ -764,17 +571,6 @@ b = a*a + a/a + a%a + a%b + -a + a[b];
 }"""
         expect="""Error on line 2 col 7: void"""
         self.assertTrue(TestParser.test(input, expect, 284))
-
-# TODO para la idlist
-#     def test285(self):
-#         input="""simple_encryption: function void (key,: string){
-# 	if (!key)
-# 		return -1;
-# 	print("Please enter plaintext");
-# 	print("Your ciphertext is");
-# }"""
-#         expect="""Error on line 1 col 38: :"""
-#         self.assertTrue(TestParser.test(input, expect, 285))
 
 
     def test286(self):
@@ -889,28 +685,6 @@ random_test_function: function float(){
         input="""main: void() {}"""
         expect="""Error on line 1 col 6: void"""
         self.assertTrue(TestParser.test(input, expect, 294))
-
-# TODO para la idlist
-#     def test295(self):
-#         input="""exchange_value: function void (out a,b: integer){
-# 	c: integer = a;
-# 	a = b;
-# 	b = c;
-# 	print("New value of a and b after exchange",a,b);
-# }"""
-#         expect="""successful"""
-#         self.assertTrue(TestParser.test(input, expect, 295))
-
-# TODO para la idlist
-#     def test296(self):
-#         input="""exchange_value: function void (out a,b: integer){
-# 	c: integer = a,b;
-# 	a = b;
-# 	b = c;
-# 	print("New value of a and b after exchange",a,b);
-# }"""
-#         expect="""Error on line 2 col 15: ,"""
-#         self.assertTrue(TestParser.test(input, expect, 296))
 
 
     def test297(self):

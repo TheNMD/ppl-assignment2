@@ -156,15 +156,15 @@ ids : CM ID ids | ;
 
 vartyp : KWINT | KWFLOAT | KWBOO | KWSTR | KWAUTO ;
 
-dimenlist : expr dimens | LITINT ;
+dimenlist : LITINT dimens | LITINT ;
 
-dimens : CM expr dimens | ;
+dimens : CM LITINT dimens | ;
 
 middle : CM ID middle expr CM | CL (KWARR LSB dimenlist RSB KWOF)? vartyp EQL ;
 
 funcdecl : funcproto funcbody ;
 
-funcproto : ID CL KWFUNC functyp paradecl (KWINHERIT ID)? ;
+funcproto : ID CL KWFUNC (KWARR LSB dimenlist RSB KWOF)? functyp paradecl (KWINHERIT ID)? ;
 
 functyp :  KWINT | KWFLOAT | KWBOO | KWSTR | KWAUTO | KWVOID ;
 
@@ -174,7 +174,7 @@ paralist : para paras | ;
 
 paras : CM para paras | ;
 
-para :  KWINHERIT? KWOUT? ID CL vartyp ;
+para :  KWINHERIT? KWOUT? ID CL (KWARR LSB dimenlist RSB KWOF)? vartyp ;
 
 funcbody : blockstmt ;
 
@@ -233,7 +233,11 @@ expr6 : SUBOP expr6 | operand ;
 
 operand: LITINT | LITFLOAT | litboo | LITSTR | ID idxop? | funccall | subexpr | litarr ;
 
-idxop : LSB dimenlist RSB ;
+idxop : LSB celllist RSB ;
+
+celllist : expr cells | expr ;
+
+cells : CM expr cells | ;
 
 funccall : ID LB exprlist? RB ;
 
