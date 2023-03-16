@@ -1,6 +1,3 @@
-simple_encryption: function void (key,: string){
-	if (!key)
-		return -1;
-	print("Please enter plaintext");
-	print("Your ciphertext is");
-}
+main1 : function string () {
+            for (i = k, i != 50, increase(i)) printInteger(i) ;
+            }

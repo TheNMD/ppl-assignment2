@@ -1,3 +1,12 @@
-relational_expr: function float() inherit main{
-	if () return foo(a,b,c);
-}
+func1 : function float () {
+            readInteger() ;
+            printInteger(213213) ;
+            readFloat() ;
+            writeFloat() ;
+            readBoolean() ;
+            printBoolean() ;
+            readString() ;
+            printString() ;
+            super();
+            preventDefault();
+            }

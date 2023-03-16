@@ -1,6 +1,1 @@
-main: function void (argv: array[3] of string, out args: integer ) {
-	a: integer = 5;
-	c: auto = 282;
-	if (c<=100) a = a+100;
-	else a= a - 100;
-}
+boolrand : boolean = (a > b) || (c != d) || (x % 2 == 0) && false ;

@@ -1,1 +1,4 @@
-abc: integer = - (! - foo());
+func1 : function auto (out a : integer, b : float) {
+            randfloat : float = 1_332.33e-23 ;
+            randarr : array [1,3_,5] of string ;
+            return;

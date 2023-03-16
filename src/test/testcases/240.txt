@@ -1,7 +1,1 @@
-test_syntax: function array[182_729] of string (string_list: array[10] of string) {
-	i: integer = 0;
-	while (true){
-		a = a::string_list[i];
-		i = i + 1;
-	}
-}
+super() ;

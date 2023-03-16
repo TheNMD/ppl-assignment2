@@ -1,5 +1,3 @@
-run7: function void(inherit out p: float, out i: float, out d: float){
-            p = -24 * i + d / 128;
-            i = -837 * 0.382 + 32;
-            d -823 % p * i;
-}
+main1 : function string () {
+            func1() + func2(22);
+            }

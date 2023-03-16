@@ -1,6 +1,4 @@
-c,d : float = 2.6e2, 10e9;
-main: function void (){
-if (a!=0){
-	expr_val = a * b + c - d /e + g*123%h;
-}
-}
+func1 : function float (c : string, out d : boolean) {
+            arr1 : array [2,3] of string = {{},{} ; 
+            return arr1 ;
+            }

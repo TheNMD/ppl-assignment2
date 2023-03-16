@@ -1,7 +1,1 @@
-test_function: function void (){
-	while(true){
-		x = x + 1;
-		if (x>5)
-			break;
-	}
-}
+arr : array [1,2,3,4_55] of string = {{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}} ;

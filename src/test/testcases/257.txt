@@ -1,5 +1,5 @@
-run10: function void(inherit out p: float, out i: float, out d: float){
-            p = -24 * i + d / 128;
-            i = -837 * 0.352 + 32;
-            d = -823 % p * i;
-}
+temp : integer = 12 ;
+        func1 : function string (inherit c : string, inherit out d : string) {
+            temp : array [2,2] of string ;
+            temp[0,1] = "randtrfck	" ;
+            }

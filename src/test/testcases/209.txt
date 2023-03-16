@@ -1,1 +1,1 @@
-string1,,int2,int3,int4: integer = "abc",129,291,10;
+arr1, arr2 : array [3,2] of float = {{1,2},{3,4},{5,8}}, {{0,0},{2,3},{9,9}} ;

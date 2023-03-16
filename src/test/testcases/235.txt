@@ -1,3 +1,1 @@
-find_gcd: main integer (a,b: integer) inherit break {
-	
-}
+func1 : function integer (c : string, out d : boolean) {}

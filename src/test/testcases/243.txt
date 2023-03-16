@@ -1,4 +1,1 @@
-infinite_loop: function void() {
-    while(false)
-		new_function(a,b,c);
-}
+str : string = "\t\b\"\r" ;

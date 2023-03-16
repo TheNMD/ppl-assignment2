@@ -1,1 +1,1 @@
-int1,int2,int3,int4: integer = 100_2,20,40,60;
+a, b, c: integer = 3, 4, 5, 6 ;

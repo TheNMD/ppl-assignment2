@@ -1,1 +1,1 @@
-math,operatos,something : void;
+arrstrcv : float = 11_32_.3_232 ;

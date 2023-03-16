@@ -1,5 +1,4 @@
-main: function void (a,b,c:integer,d,e: array[3] of integer) inherit vice {
-	break;
-	foo(a,b,c);
-	continues;
-}
+func1 : function float (c : string, out d : boolean) {
+            a,b,c : integer = 1,2,3,4 ;
+            return a ;
+            }

@@ -1,4 +1,9 @@
-exp_call_to_death: function auto (){
-	while (true)
-		print(func1(func2(func3(func4(func5(func6(param)))))));
-}
+func1 : function string (inherit c : string, inherit out d : string) {
+            temp : integer = 0 ;
+            for (i = 0, i < 10, i + 1) 
+            {
+                if (i % 2) temp = temp + i ;
+                else temp = temp + 1 ;
+            }
+            return temp ;
+            }

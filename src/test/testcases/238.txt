@@ -1,5 +1,1 @@
-bool_expr: function float() inherit main{
-	bolean1, bolean2, bolean3, bolean4: boolean = true,false,,true,true;
-	if (bolean1 == true) continue;
-	else bool_value = !bolean1 && bolean2 || bolean1;
-}
+flt1 : float = 155_66.e-13 + 0e-23 ;

@@ -1,1 +1,1 @@
-a,b,c: float = 1,2;
+boo1 : boolean = true || true || true || true && false && false ;

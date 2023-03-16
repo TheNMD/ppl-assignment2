@@ -1,3 +1,1 @@
-main: function void() {
-    do while (true);
-}
+str : string = "{c}Y4enROD$$$!h%-~~V{9p>kXS6Ib>05" ;

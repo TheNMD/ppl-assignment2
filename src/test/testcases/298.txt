@@ -1,4 +1,4 @@
-main: function void(){
-	for (count_var=0,true,true)
-		count_var=count_var+1
-}
+main1 : function string () {
+            str = "abc" :: "cde" :: "123" :: "456" ;
+            return ;
+            }

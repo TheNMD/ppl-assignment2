@@ -1,1 +1,4 @@
-main: function void () {}
+func1 : function void (c : string, out d : boolean) {
+            if(true) printInteger(a) ;
+            else a = readInteger() ;
+            }

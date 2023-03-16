@@ -1,5 +1,4 @@
-relational_expr: function float() inherit main{
-	expr1,expr2: integer = 5,6;
-	if (false) return (expr1 == expr2) && (expr1 >= expr2) && (expr1 >= expr2) && (expr1 <= expr2) || (expr1 > expr2) && (expr1 < expr2);
-	else break;
-}
+func1 : function integer (c : string, out d : boolean) {
+            int1 : array [2,2] of integer = {{-9 + 7 * 122, 9 - -9},{a[3] * 7, caltrand(2, b, 5)}} ; 
+            return int1 ;
+            }

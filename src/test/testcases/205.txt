@@ -1,4 +1,6 @@
-x,y,z,t: float;
-a,b,c: string;
-g,h,i,j,k: auto;
-m,q : integer;
+func1 : function auto (out a : integer, b : float) {
+            randfloat : float = 1_332.33e-23 ;
+            randarr : array [1,3,5] of string ;
+            randstring : string = "hololo\txxewaazh\f\b" ;
+            return;
+            }

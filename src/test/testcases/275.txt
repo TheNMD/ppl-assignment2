@@ -1,5 +1,1 @@
-main: function void(){
-	{
-		return true;
-	}
-}
+int0 : Integer ;

@@ -1,5 +1,5 @@
-run8: function void(inherit out p: float, out i: float, out d: float){
-            p = -24 * i + d / 128;
-            i = -837 * 0.612 + 32;
-            d = -823 % p * i;
-}
+func1 : function string (inherit c : string, inherit out d : string) {
+            temp : array [2,2] of string = {{a,a},{d,d}} ;
+            int1 : integer = 0 ;
+            return temp[int1, int1] ;
+            }

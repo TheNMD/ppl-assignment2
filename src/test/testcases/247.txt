@@ -1,12 +1,3 @@
-fibonacci_func: function void (n: integer){
-	i,a,b: integer = 1,0,1,;
-	do {
-
-	}
-	while (i<=n){
-		c = b;
-		b = b+a;
-		a = c;
-	}
-
-}
+func1 : function string (inherit c : string, inherit out d : string) {
+            a : string = ("cde" :: c) :: (d :: "abc") ;
+            }

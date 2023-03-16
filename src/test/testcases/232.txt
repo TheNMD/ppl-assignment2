@@ -1,4 +1,6 @@
-index_expr: function float() inherit main{
-	my_array: array[100] of float;
-	if (x != 2) new_ele = my_array[2+5,92,17];
-}
+func1 : function integer (c : string, out d : boolean) {
+            for(i = 0, i < 100, i + 1)
+                for(j = i, j < 100, j + 1)
+                    if(arr[i,j] == true) return 220 ;
+            return int1 ;
+            }

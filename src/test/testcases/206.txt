@@ -1,2 +1,1 @@
-a,b,c: string;
-g,h,i,j,: auto;
+int1, int2, int3 : float = 1.22e332, 1_332_443.e-1223, 0.3322e0 ;

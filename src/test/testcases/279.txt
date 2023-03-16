@@ -1,8 +1,1 @@
-main: function void() {
-    int1: integer = 123;
-    float2: string = "string";
-    bool3: boolean = true;
-    auto4: auto = int1;
-    str5: string = "abc"::"xyz";
-
-}
+a,b,c : array [5,6] of string = {},{},{} ;

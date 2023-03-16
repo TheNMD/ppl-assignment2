@@ -1,3 +1,4 @@
-main: function integer (out a:auto,inherit d,e: array[3] of integer, inherit out v: string) {
-	break;
-}
+func1 : function float (c : string, out d : boolean) {
+            a,b,c,d : integer = 1,2,3 ;
+            return a ;
+            }

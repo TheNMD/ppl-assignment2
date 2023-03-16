@@ -1,3 +1,4 @@
-main: function array[5,2] of string (a,b,c:integer,d,e: array[3] of integer) {
-	return goo(4,5,foo(2,3));
-}
+func1 : function float (c : string, out d : boolean) {
+            a,b,c : array [2_,3] of float ;
+            return a ;
+            }

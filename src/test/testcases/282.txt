@@ -1,3 +1,4 @@
-main: function void() {
-    a = (a > b) >= c >= d;
-}
+main1 : function string () {
+            do a = a / 9 ;
+            while (a > 100) ;
+            }

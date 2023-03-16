@@ -1,11 +1,1 @@
-random_test_function: function float(){
-	a,b: integer = 3,4;
-	strin1, strin2 = "akajcsna","jhcbahscb";
-	while (true){
-		print(a+b);
-		a = a - 1;
-		b = b%a+a;
-		if (a+b <=100)
-			break;
-	}
-}
+strstr : string = "\"\"\'\\" ;

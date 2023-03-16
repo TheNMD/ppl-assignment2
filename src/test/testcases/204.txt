@@ -1,1 +1,1 @@
-abc,def : ;
+arr : array [3,2] of float = {{1,2},{3,4},{5,8}} ;

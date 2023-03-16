@@ -205,11 +205,29 @@ class ASTGeneration(MT22Visitor):
         init = self.visit(ctx.assignstmt())
         cond = self.visit(ctx.expr()[0])
         upd = self.visit(ctx.expr()[1])
-        stmt = self.visit(ctx.stmt())
+        if ctx.stmt():
+            stmt = self.visit(ctx.stmt())
+        elif ctx.ifstmt():
+            stmt = self.visit(ctx.ifstmt())
+        elif ctx.forstmt():
+            stmt = self.visit(ctx.forstmt())
+        elif ctx.whilestmt():
+            stmt = self.visit(ctx.whilestmt())
+        else:
+            stmt = self.visit(ctx.blockstmt())
         return ForStmt(init, cond, upd, stmt)
     def visitWhilestmt(self, ctx: MT22Parser.WhilestmtContext): #TODO
         cond = self.visit(ctx.expr())
-        stmt = self.visit(ctx.stmt())
+        if ctx.stmt():
+            stmt = self.visit(ctx.stmt())
+        elif ctx.ifstmt():
+            stmt = self.visit(ctx.ifstmt())
+        elif ctx.forstmt():
+            stmt = self.visit(ctx.forstmt())
+        elif ctx.whilestmt():
+            stmt = self.visit(ctx.whilestmt())
+        else:
+            stmt = self.visit(ctx.blockstmt())
         return WhileStmt(cond, stmt)
     def visitAssignstmt(self, ctx: MT22Parser.AssignstmtContext):
         if ctx.idxop(): 
@@ -243,7 +261,7 @@ class ASTGeneration(MT22Visitor):
         return CallStmt(name, arg)
     def visitSpecialfunc(self, ctx: MT22Parser.SpecialfuncContext):
         name = ctx.getChild(0).getText()
-        arg = None
+        arg = []
         if ctx.exprlist():
             arg = self.visit(ctx.exprlist())
         return [name, arg]

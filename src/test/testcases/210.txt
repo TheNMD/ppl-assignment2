@@ -1,4 +1,1 @@
-float_a : float = 2.e+10;
-integer_b: integer = 1219381_1928218;
-boolean_c: boolean = true;
-auto_d: auto ="ABCZ";
+auto : integer ;

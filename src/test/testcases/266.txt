@@ -1,10 +1,1 @@
-degreeOfFreedom: auto = 1024;
-batteryLevel: integer = 100;
-main: function void(){
-	prinf("Degree of freedom is");
-	prinf(degreeOfFreedom);
-	prinf("
-");
-	p,q,r,s: float = 0.328;
-	i: int = 0.0;
-}
+_a : integer = __9b ;
