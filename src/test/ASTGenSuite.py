@@ -1018,40 +1018,42 @@ class ASTGenSuite(unittest.TestCase):
         
     def test96(self):
         """More complex program"""
-        input = """main1 : function string () {}"""
+        input = """ randfloat : float = 1_332.33e-23 % arr[2,33,2] ;
+                    randarr : array [1,3,5] of string = "string" ;"""
         expect = """Program([
-	FuncDecl(main1, StringType, [], None, BlockStmt([]))
+	VarDecl(randfloat, FloatType, BinExpr(%, FloatLit(1332.33e-23), ArrayCell(arr, [IntegerLit(2), IntegerLit(33), IntegerLit(2)])))
+	VarDecl(randarr, ArrayType([1, 3, 5], StringType), StringLit(string))
 ])"""
         self.assertTrue(TestAST.test(input, expect, 396))
         
     def test97(self):
         """More complex program"""
-        input = """main1 : function string () {}"""
+        input = """main1 : function string () { if ( a > b) break ; else continue ;}"""
         expect = """Program([
-	FuncDecl(main1, StringType, [], None, BlockStmt([]))
+	FuncDecl(main1, StringType, [], None, BlockStmt([IfStmt(BinExpr(>, Id(a), Id(b)), BreakStmt(), ContinueStmt())]))
 ])"""
         self.assertTrue(TestAST.test(input, expect, 397))
         
     def test98(self):
         """More complex program"""
-        input = """main1 : function string () {}"""
+        input = """main1 : function string () { return Super(Super(Super(func1()))) ; }"""
         expect = """Program([
-	FuncDecl(main1, StringType, [], None, BlockStmt([]))
+	FuncDecl(main1, StringType, [], None, BlockStmt([ReturnStmt(FuncCall(Super, [FuncCall(Super, [FuncCall(Super, [FuncCall(func1, [])])])]))]))
 ])"""
         self.assertTrue(TestAST.test(input, expect, 398))
         
     def test99(self):
         """More complex program"""
-        input = """main1 : function string () {}"""
+        input = """main1 : function string () { return {} ; }"""
         expect = """Program([
-	FuncDecl(main1, StringType, [], None, BlockStmt([]))
+	FuncDecl(main1, StringType, [], None, BlockStmt([ReturnStmt(ArrayLit([]))]))
 ])"""
         self.assertTrue(TestAST.test(input, expect, 399))
         
     def test100(self):
         """More complex program"""
-        input = """main1 : function string () {}"""
+        input = """a : integer = 1 + 2 ;"""
         expect = """Program([
-	FuncDecl(main1, StringType, [], None, BlockStmt([]))
+	VarDecl(a, IntegerType, BinExpr(+, IntegerLit(1), IntegerLit(2)))
 ])"""
         self.assertTrue(TestAST.test(input, expect, 400))

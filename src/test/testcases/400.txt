@@ -1,1 +1,1 @@
-main1 : function string () {}
+a : integer = 1 + 2 ;

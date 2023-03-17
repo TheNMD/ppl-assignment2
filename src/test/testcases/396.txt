@@ -1,1 +1,2 @@
-main1 : function string () {}
+ randfloat : float = 1_332.33e-23 % arr[2,33,2] ;
+                    randarr : array [1,3,5] of string = "string" ;
