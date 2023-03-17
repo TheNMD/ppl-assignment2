@@ -955,10 +955,10 @@ class ASTGenSuite(unittest.TestCase):
     def test90(self):
         """More complex program"""
         input = """main1 : function string () {
-            for (i = k, i != 50, decrease(i)) super(i) ;
+            for (i = k, i != 50, decrease(i)) a = super(i) ;
             }"""
         expect = """Program([
-	FuncDecl(main1, StringType, [], None, BlockStmt([ForStmt(AssignStmt(Id(i), Id(k)), BinExpr(!=, Id(i), IntegerLit(50)), FuncCall(decrease, [Id(i)]), CallStmt(super, Id(i)))]))
+	FuncDecl(main1, StringType, [], None, BlockStmt([ForStmt(AssignStmt(Id(i), Id(k)), BinExpr(!=, Id(i), IntegerLit(50)), FuncCall(decrease, [Id(i)]), AssignStmt(Id(a), FuncCall(super, [Id(i)])))]))
 ])"""
         self.assertTrue(TestAST.test(input, expect, 390))
         
