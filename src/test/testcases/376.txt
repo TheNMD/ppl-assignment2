@@ -1,1 +1,1 @@
-main1 : function string () {}
+int1 : integer = randfunc({},{{}},{{},{}}) ;

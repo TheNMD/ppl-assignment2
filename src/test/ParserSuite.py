@@ -279,14 +279,14 @@ class ParserSuite(unittest.TestCase):
         self.assertTrue(TestParser.test(input, expect, 253))
         input = """func1 : function string (inherit c : string, inherit out d : string) {
             temp : integer = 0 ;
-            return temp ;
+            return ftemp ;
             }
             func2 : function float (a : integer, out b : integer) {
             return func1(2,3,5) ;   
             }"""
         expect = "successful"
         self.assertTrue(TestParser.test(input, expect, 254))
-        input = """int1 : integer = randfunc(a,6,8_6, 9 / 2) ;"""
+        input = """int1 : integer = randfunc(a,6,8_6, 9 / 2, arr[3,4,6/4,7%23]) ;"""
         expect = "successful"
         self.assertTrue(TestParser.test(input, expect, 255))
         input = """func1 : function string (inherit c : string, inherit out d : string) {

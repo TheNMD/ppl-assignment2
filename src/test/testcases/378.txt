@@ -1,1 +1,11 @@
-main1 : function string () {}
+func1: function void()
+                    {
+                        {
+                            {
+                                {
+                                    arr: array[5] of integer;
+                                    return arr ;
+                                }
+                            }
+                        }
+                    }

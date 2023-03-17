@@ -1,1 +1,1 @@
-main1 : function string () {}
+main1 : function string () { _a : integer = __9b ; }

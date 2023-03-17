@@ -1,1 +1,2 @@
-main1 : function string () {}
+ a : string  = -234 - s / f / 20;
+                    b : float = !8 - -10.1 + !32e-32; 

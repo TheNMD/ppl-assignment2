@@ -1,1 +1,1 @@
-main1 : function string () {}
+boo1,boo2,boo3 : boolean = true,false,false||true ;

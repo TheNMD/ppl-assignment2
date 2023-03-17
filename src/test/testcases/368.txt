@@ -1,1 +1,1 @@
-main1 : function string () {}
+boolrand : boolean = (a > b) || (c != d) || (x % 2 == 0) && false ;

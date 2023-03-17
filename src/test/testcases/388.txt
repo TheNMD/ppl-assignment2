@@ -1,1 +1,1 @@
-main1 : function string () {}
+arr : array [1,2,3,4_55] of string = {{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}} ;

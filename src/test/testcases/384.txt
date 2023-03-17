@@ -1,1 +1,1 @@
-main1 : function string () {}
+int1 : integer = (((7 - 9))) * ((8)) - b[2,3,4] ; 

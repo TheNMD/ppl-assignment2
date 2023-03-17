@@ -1,1 +1,11 @@
-main1 : function string () {}
+main1 : function string () {
+                {
+                    {
+                        {
+                            {
+                                return "123" :: "abc	\t" ;
+                            }
+                        }   
+                    }
+                }
+            }
