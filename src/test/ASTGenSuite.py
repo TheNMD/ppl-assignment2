@@ -954,49 +954,65 @@ class ASTGenSuite(unittest.TestCase):
         
     def test90(self):
         """More complex program"""
-        input = """main1 : function string () {}"""
+        input = """main1 : function string () {
+            for (i = k, i != 50, decrease(i)) super(i) ;
+            }"""
         expect = """Program([
-	FuncDecl(main1, StringType, [], None, BlockStmt([]))
+	FuncDecl(main1, StringType, [], None, BlockStmt([ForStmt(AssignStmt(Id(i), Id(k)), BinExpr(!=, Id(i), IntegerLit(50)), FuncCall(decrease, [Id(i)]), CallStmt(super, Id(i)))]))
 ])"""
         self.assertTrue(TestAST.test(input, expect, 390))
         
     def test91(self):
         """More complex program"""
-        input = """main1 : function string () {}"""
+        input = """main1 : function string () {
+                return 1/2/3/4/5/6 ;
+            }"""
         expect = """Program([
-	FuncDecl(main1, StringType, [], None, BlockStmt([]))
+	FuncDecl(main1, StringType, [], None, BlockStmt([ReturnStmt(BinExpr(/, BinExpr(/, BinExpr(/, BinExpr(/, BinExpr(/, IntegerLit(1), IntegerLit(2)), IntegerLit(3)), IntegerLit(4)), IntegerLit(5)), IntegerLit(6)))]))
 ])"""
         self.assertTrue(TestAST.test(input, expect, 391))
         
     def test92(self):
         """More complex program"""
-        input = """main1 : function string () {}"""
+        input = """main1 : function string () {
+                	str1, str2: string = "abcdef","";
+	                if (true || false) return str1::str2 ;
+            }"""
         expect = """Program([
-	FuncDecl(main1, StringType, [], None, BlockStmt([]))
+	FuncDecl(main1, StringType, [], None, BlockStmt([VarDecl(str1, StringType, StringLit(abcdef)), VarDecl(str2, StringType, StringLit()), IfStmt(BinExpr(||, BooleanLit(True), BooleanLit(False)), ReturnStmt(BinExpr(::, Id(str1), Id(str2))))]))
 ])"""
         self.assertTrue(TestAST.test(input, expect, 392))
 
     def test93(self):
         """More complex program"""
-        input = """main1 : function string () {}"""
+        input = """main1 : function string () {
+            bool = !(!(!(1)));
+            return ;
+            }"""
         expect = """Program([
-	FuncDecl(main1, StringType, [], None, BlockStmt([]))
+	FuncDecl(main1, StringType, [], None, BlockStmt([AssignStmt(Id(bool), UnExpr(!, UnExpr(!, UnExpr(!, IntegerLit(1))))), ReturnStmt()]))
 ])"""
         self.assertTrue(TestAST.test(input, expect, 393))
         
     def test94(self):
         """More complex program"""
-        input = """main1 : function string () {}"""
+        input = """main1 : function string () {
+            bool = !(-(!(1)));
+            return ;
+            }"""
         expect = """Program([
-	FuncDecl(main1, StringType, [], None, BlockStmt([]))
+	FuncDecl(main1, StringType, [], None, BlockStmt([AssignStmt(Id(bool), UnExpr(!, UnExpr(-, UnExpr(!, IntegerLit(1))))), ReturnStmt()]))
 ])"""
         self.assertTrue(TestAST.test(input, expect, 394))
         
     def test95(self):
         """More complex program"""
-        input = """main1 : function string () {}"""
+        input = """main1 : function string () {
+            arr = arr[arr[1],arr[2],arr[1+2,3+4]];
+            return ;
+            }"""
         expect = """Program([
-	FuncDecl(main1, StringType, [], None, BlockStmt([]))
+	FuncDecl(main1, StringType, [], None, BlockStmt([AssignStmt(Id(arr), ArrayCell(arr, [ArrayCell(arr, [IntegerLit(1)]), ArrayCell(arr, [IntegerLit(2)]), ArrayCell(arr, [BinExpr(+, IntegerLit(1), IntegerLit(2)), BinExpr(+, IntegerLit(3), IntegerLit(4))])])), ReturnStmt()]))
 ])"""
         self.assertTrue(TestAST.test(input, expect, 395))
         

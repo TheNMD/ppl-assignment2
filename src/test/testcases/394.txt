@@ -1,1 +1,4 @@
-main1 : function string () {}
+main1 : function string () {
+            bool = !(-(!(1)));
+            return ;
+            }
