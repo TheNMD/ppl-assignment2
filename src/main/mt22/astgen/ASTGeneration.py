@@ -255,7 +255,7 @@ class ASTGeneration(MT22Visitor):
             arg = namearg[1]
             return CallStmt(name, arg)
         name = ctx.ID().getText()
-        arg = None
+        arg = []
         if ctx.exprlist():
             arg =  self.visit(ctx.exprlist())
         return CallStmt(name, arg)

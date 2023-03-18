@@ -210,7 +210,7 @@ callstmt : (ID LB RB | ID LB exprlist RB | specialfunc) ;
 
 
 specialfunc : ('readInteger' | 'readFloat' | 'readBoolean' | 'readString' | 'preventDefault') LB RB 
-			| ('printInteger' | 'writeFloat' | 'printBoolean' | 'printString') LB exprlist RB ; // Xem lai super
+			| ('printInteger' | 'writeFloat' | 'printBoolean' | 'printString') LB exprlist RB ;
 
 exprlist : expr exprs | expr ;
 
