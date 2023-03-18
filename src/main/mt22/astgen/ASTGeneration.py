@@ -323,13 +323,13 @@ class ASTGeneration(MT22Visitor):
         return self.visit(ctx.operand())
     def visitOperand(self, ctx: MT22Parser.OperandContext):
         if ctx.LITINT():
-            return IntegerLit(ctx.LITINT().getText())
+            return IntegerLit(int(ctx.LITINT().getText()))
         elif ctx.LITFLOAT():
-            return FloatLit(ctx.LITFLOAT().getText())
+            return FloatLit(float(ctx.LITFLOAT().getText()))
         elif ctx.litboo():
             return self.visit(ctx.litboo())
         elif ctx.LITSTR():
-            return StringLit(ctx.LITSTR().getText())
+            return StringLit(str(ctx.LITSTR().getText()))
         elif ctx.ID():
             if ctx.idxop():
                 return ArrayCell(ctx.ID().getText(), self.visit(ctx.idxop()))
