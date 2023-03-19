@@ -251,20 +251,12 @@ class ASTGeneration(MT22Visitor):
     def visitCallstmt(self, ctx: MT22Parser.CallstmtContext):
         if ctx.specialfunc():
             namearg = self.visit(ctx.specialfunc())
-            name = namearg[0]
-            arg = namearg[1]
-            return CallStmt(name, arg)
+            return CallStmt(namearg[0], namearg[1])
         name = ctx.ID().getText()
         arg = []
         if ctx.exprlist():
             arg =  self.visit(ctx.exprlist())
         return CallStmt(name, arg)
-    def visitSpecialfunc(self, ctx: MT22Parser.SpecialfuncContext):
-        name = ctx.getChild(0).getText()
-        arg = []
-        if ctx.exprlist():
-            arg = self.visit(ctx.exprlist())
-        return [name, arg]
         
     # Expressions
     def visitExprlist(self, ctx: MT22Parser.ExprlistContext):
@@ -340,6 +332,9 @@ class ASTGeneration(MT22Visitor):
             return self.visit(ctx.subexpr())
         elif ctx.litarr():
             return self.visit(ctx.litarr())
+        elif ctx.specialfunc():
+            namearg = self.visit(ctx.specialfunc())
+            return FuncCall(namearg[0], namearg[1])
     def visitLitboo(self, ctx: MT22Parser.LitbooContext):
         if ctx.KWTRUE():
             return BooleanLit(True)
@@ -364,3 +359,9 @@ class ASTGeneration(MT22Visitor):
         if ctx.exprlist():
             return ArrayLit(self.visit(ctx.exprlist()))
         return ArrayLit([])
+    def visitSpecialfunc(self, ctx: MT22Parser.SpecialfuncContext):
+        name = ctx.getChild(0).getText()
+        arg = []
+        if ctx.exprlist():
+            arg = self.visit(ctx.exprlist())
+        return [name, arg]

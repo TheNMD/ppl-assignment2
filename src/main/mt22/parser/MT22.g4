@@ -208,10 +208,6 @@ rtnstmt : KWRTN (expr)? ;
 
 callstmt : (ID LB RB | ID LB exprlist RB | specialfunc) ;
 
-
-specialfunc : ('readInteger' | 'readFloat' | 'readBoolean' | 'readString' | 'preventDefault') LB RB 
-			| ('printInteger' | 'writeFloat' | 'printBoolean' | 'printString') LB exprlist RB ;
-
 exprlist : expr exprs | expr ;
 
 exprs : CM expr exprs | ;
@@ -232,7 +228,7 @@ expr6 : SUBOP expr6 | operand ;
 
 //expr7 : expr7 idxop | operand ;
 
-operand: LITINT | LITFLOAT | litboo | LITSTR | ID idxop? | funccall | subexpr | litarr ;
+operand: LITINT | LITFLOAT | litboo | LITSTR | ID idxop? | funccall | subexpr | litarr | specialfunc ;
 
 idxop : LSB celllist RSB ;
 
@@ -245,6 +241,9 @@ funccall : ID LB exprlist? RB ;
 subexpr : LB expr RB ;
 
 litarr : LCB exprlist? RCB ;
+
+specialfunc : ('readInteger' | 'readFloat' | 'readBoolean' | 'readString' | 'preventDefault') LB RB 
+			| ('printInteger' | 'writeFloat' | 'printBoolean' | 'printString') LB exprlist RB ;
 
 // ERROR TOKENS
 ILLEGAL_ESCAPE: '"' Char* ('\\' ~[bfrnt'\\"]) {self.text = self.text[1:]; raise IllegalEscape(self.text)};
