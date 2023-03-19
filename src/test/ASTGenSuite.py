@@ -1057,3 +1057,11 @@ class ASTGenSuite(unittest.TestCase):
 	VarDecl(a, IntegerType, BinExpr(+, IntegerLit(1), IntegerLit(2)))
 ])"""
         self.assertTrue(TestAST.test(input, expect, 400))
+        
+    def test101(self):
+        """More complex program"""
+        input = """a : integer = arr[10] ;"""
+        expect = """Program([
+	VarDecl(a, IntegerType, BinExpr(+, IntegerLit(1), IntegerLit(2)))
+])"""
+        self.assertTrue(TestAST.test(input, expect, 401))
