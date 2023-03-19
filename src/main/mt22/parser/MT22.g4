@@ -243,7 +243,7 @@ subexpr : LB expr RB ;
 litarr : LCB exprlist? RCB ;
 
 specialfunc : ('readInteger' | 'readFloat' | 'readBoolean' | 'readString' | 'preventDefault') LB RB 
-			| ('printInteger' | 'writeFloat' | 'printBoolean' | 'printString') LB exprlist RB ;
+			| ('printInteger' | 'writeFloat' | 'printBoolean' | 'printString' | 'super') LB exprlist RB ;
 
 // ERROR TOKENS
 ILLEGAL_ESCAPE: '"' Char* ('\\' ~[bfrnt'\\"]) {self.text = self.text[1:]; raise IllegalEscape(self.text)};
