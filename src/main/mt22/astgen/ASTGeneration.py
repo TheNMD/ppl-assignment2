@@ -317,7 +317,10 @@ class ASTGeneration(MT22Visitor):
         if ctx.LITINT():
             return IntegerLit(int(ctx.LITINT().getText()))
         elif ctx.LITFLOAT():
-            return FloatLit(float(ctx.LITFLOAT().getText()))
+            res = ctx.LITFLOAT().getText()
+            if res[0] == "." and (res[1] == "e" or res[1] == "E"):
+                return FloatLit(float(0.0))
+            return FloatLit(float(res))
         elif ctx.litboo():
             return self.visit(ctx.litboo())
         elif ctx.LITSTR():

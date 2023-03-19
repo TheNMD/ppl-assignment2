@@ -125,7 +125,12 @@ EQL : '=' ;
 // Literals
 LITINT : [0-9] | [1-9][0-9_]*[0-9] {self.text = self.text.replace('_','')} ;
 
-LITFLOAT : LITINT Decimal? Exponent? {self.text = self.text.replace('_','')} | LITINT? Decimal Exponent? {self.text = self.text.replace('_','')} | LITINT? Decimal? Exponent {self.text = self.text.replace('_','')} ;
+LITFLOAT : LITINT {self.text = self.text.replace('_','')} 
+		 | LITINT Decimal {self.text = self.text.replace('_','')}
+		 | LITINT Exponent {self.text = self.text.replace('_','')} 
+		 | LITINT Decimal Exponent {self.text = self.text.replace('_','')}
+		 | Decimal {self.text = self.text.replace('_','')}
+		 | Decimal Exponent {self.text = self.text.replace('_','')} ;
 
 fragment Decimal : DOT [0-9]* ;
 
